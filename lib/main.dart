@@ -7,10 +7,7 @@ import 'data/models/user_profile.dart';
 import 'data/models/pet.dart';
 import 'data/models/inventory_item.dart';
 import 'data/models/skill_node.dart';
-import 'providers/auth_provider.dart';
-import 'screens/login_screen.dart';
-import 'screens/onboarding_screen.dart';
-import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 import 'data/services/firebase_service.dart';
 import 'data/services/mongo_sync_service.dart';
 
@@ -51,26 +48,11 @@ class LifeQuestApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authProvider);
-
-    Widget screen;
-    switch (authState) {
-      case AuthState.unauthenticated:
-        screen = const LoginScreen();
-        break;
-      case AuthState.onboarding:
-        screen = const OnboardingScreen();
-        break;
-      case AuthState.authenticated:
-        screen = const HomeScreen();
-        break;
-    }
-
     return MaterialApp(
       title: 'LifeQuest RPG',
       debugShowCheckedModeBanner: false,
       theme: RpgTheme.darkTheme,
-      home: screen,
+      home: const SplashScreen(),
     );
   }
 }
