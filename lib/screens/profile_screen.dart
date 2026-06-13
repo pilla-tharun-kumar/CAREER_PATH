@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../core/theme.dart';
+import '../core/config.dart';
 import '../providers/user_provider.dart';
 import '../providers/achievement_provider.dart';
 import '../providers/quest_provider.dart';
 import '../widgets/avatar_painter.dart';
+import '../data/services/mongo_sync_service.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -85,6 +88,8 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 24),
+            const CloudConnectionCard(),
             const SizedBox(height: 24),
 
             // Achievements section
@@ -199,6 +204,232 @@ class ProfileScreen extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CloudConnectionCard extends StatefulWidget {
+  const CloudConnectionCard({super.key});
+
+  @override
+  State<CloudConnectionCard> createState() => _CloudConnectionCardState();
+}
+
+class _CloudConnectionCardState extends State<CloudConnectionCard> {
+  bool _isTesting = false;
+  bool _isSyncing = false;
+  bool? _testSuccess;
+  int _pendingCount = MongoSyncService.pendingSyncsCount;
+
+  void _testPing() async {
+    setState(() {
+      _isTesting = true;
+      _testSuccess = null;
+    });
+    final success = await MongoSyncService.testConnection();
+    if (mounted) {
+      setState(() {
+        _isTesting = false;
+        _testSuccess = success;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            success 
+                ? '✅ Cloud Database connection ping successful!' 
+                : '❌ Connection failed. Check MongoDB URI / network status.',
+          ),
+          backgroundColor: success ? RpgColors.success : Colors.red,
+        ),
+      );
+    }
+  }
+
+  void _syncQueue() async {
+    setState(() {
+      _isSyncing = true;
+    });
+    
+    await MongoSyncService.processOfflineQueue();
+    
+    if (mounted) {
+      setState(() {
+        _isSyncing = false;
+        _pendingCount = MongoSyncService.pendingSyncsCount;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('🔄 Offline synchronization queue processed!'),
+          backgroundColor: RpgColors.accent,
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+    final isFirebaseActive = RpgConfig.isFirebaseEnabled && firebaseUser != null;
+    final isMongoActive = RpgConfig.isMongoSyncEnabled;
+    
+    // Mask MongoDB URI password: mongodb+srv://user:pass@host/db -> mongodb+srv://user:***@host/db
+    String maskedUri = RpgConfig.mongoUri;
+    try {
+      final uriParts = RpgConfig.mongoUri.split('@');
+      if (uriParts.length == 2) {
+        final credentialParts = uriParts[0].split(':');
+        if (credentialParts.length == 3) {
+          maskedUri = "${credentialParts[0]}:${credentialParts[1]}:******@${uriParts[1]}";
+        }
+      }
+    } catch (_) {}
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.sync_alt, color: RpgColors.accent, size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  'CLOUD SYNC & BACKEND STATUS',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Firebase authentication status
+            _buildConnectionRow(
+              title: 'FIREBASE AUTH SERVICE',
+              subtitle: isFirebaseActive ? 'Connected as: ${firebaseUser.email}' : 'Mock Auth Mode (offline)',
+              isActive: isFirebaseActive,
+              icon: Icons.vpn_key_outlined,
+            ),
+            const SizedBox(height: 12),
+            const Divider(color: RpgColors.border, height: 1),
+            const SizedBox(height: 12),
+
+            // MongoDB Sync status
+            _buildConnectionRow(
+              title: 'MONGODB ATLAS CLUSTER SYNC',
+              subtitle: _pendingCount > 0 
+                  ? 'Offline: $_pendingCount local tasks pending sync' 
+                  : (isMongoActive ? 'Synced to Cluster: ...${maskedUri.substring(maskedUri.indexOf('@') + 1)}' : 'Disabled (Local Cache Only)'),
+              isActive: isMongoActive && _pendingCount == 0,
+              isWarning: _pendingCount > 0,
+              icon: Icons.storage_outlined,
+            ),
+            const SizedBox(height: 20),
+
+            // Buttons
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: _isTesting ? null : _testPing,
+                    icon: _isTesting 
+                        ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                        : Icon(
+                            _testSuccess == null 
+                                ? Icons.radar 
+                                : (_testSuccess! ? Icons.check_circle : Icons.error),
+                            size: 16,
+                          ),
+                    label: const Text('TEST PING', style: TextStyle(fontSize: 11, letterSpacing: 0.5)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: _testSuccess == null
+                          ? RpgColors.cardBg
+                          : (_testSuccess! ? RpgColors.success : Colors.red),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: _isSyncing || !isMongoActive ? null : _syncQueue,
+                    icon: _isSyncing 
+                        ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                        : const Icon(Icons.cloud_upload_outlined, size: 16),
+                    label: const Text('FORCE SYNC', style: TextStyle(fontSize: 11, letterSpacing: 0.5)),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: RpgColors.accent,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildConnectionRow({
+    required String title,
+    required String subtitle,
+    required bool isActive,
+    bool isWarning = false,
+    required IconData icon,
+  }) {
+    Color statusColor = isActive 
+        ? RpgColors.success 
+        : (isWarning ? Colors.amber : RpgColors.textSecondary);
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, color: RpgColors.textSecondary, size: 20),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(fontSize: 10, color: RpgColors.textSecondary, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                subtitle,
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 8),
+        // Pulsing / static dot
+        Container(
+          width: 8,
+          height: 8,
+          margin: const EdgeInsets.only(top: 4),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: statusColor,
+            boxShadow: [
+              if (isActive || isWarning)
+                BoxShadow(
+                  color: statusColor.withOpacity(0.5),
+                  blurRadius: 6,
+                  spreadRadius: 2,
+                )
+            ]
+          ),
+        )
+      ],
     );
   }
 }

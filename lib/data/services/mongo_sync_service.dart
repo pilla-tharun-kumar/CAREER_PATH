@@ -16,6 +16,26 @@ class MongoSyncService {
     }
   }
 
+  static int get pendingSyncsCount => _pendingSyncsBox.length;
+
+  static Future<bool> testConnection() async {
+    mongo.Db? db;
+    try {
+      db = await mongo.Db.create(RpgConfig.mongoUri);
+      await db.open().timeout(const Duration(seconds: 3));
+      return true;
+    } catch (e) {
+      print("❌ [MongoSync] Test connection failed: $e");
+      return false;
+    } finally {
+      if (db != null) {
+        try {
+          await db.close();
+        } catch (_) {}
+      }
+    }
+  }
+
   /// Pushes a document change to MongoDB Atlas
   static Future<void> syncDocument({
     required String collection,
