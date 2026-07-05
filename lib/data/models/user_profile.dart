@@ -61,6 +61,9 @@ class UserProfile extends HiveObject {
   @HiveField(18)
   final int currentUnit;
 
+  @HiveField(19)
+  final int currentNode;
+
   UserProfile({
     required this.username,
     this.level = 1,
@@ -81,6 +84,7 @@ class UserProfile extends HiveObject {
     this.streakFreezeCount = 0,
     this.activeTrack = 'Excel',
     this.currentUnit = 1,
+    this.currentNode = 0,
   });
 
   static String getCharacterTitle(String avatarBase, int level) {
@@ -113,6 +117,7 @@ class UserProfile extends HiveObject {
     int? streakFreezeCount,
     String? activeTrack,
     int? currentUnit,
+    int? currentNode,
   }) {
     return UserProfile(
       username: username ?? this.username,
@@ -134,6 +139,7 @@ class UserProfile extends HiveObject {
       streakFreezeCount: streakFreezeCount ?? this.streakFreezeCount,
       activeTrack: activeTrack ?? this.activeTrack,
       currentUnit: currentUnit ?? this.currentUnit,
+      currentNode: currentNode ?? this.currentNode,
     );
   }
 }

@@ -202,7 +202,7 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
     }
   }
 
-  void _showNodePopup(PathNode node, bool isCompleted) {
+  void _showNodePopup(PathNode node, bool isCompleted, {VoidCallback? onMarkRead}) {
     final Color categoryColor = _getCategoryColor(node.category);
     final Color bottomBorderColor = _getCategoryBottomColor(node.category);
 
@@ -248,6 +248,7 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
               ),
               SizedBox(height: 24),
 
+              // Study Material Button
               StatefulBuilder(
                 builder: (context, setState) {
                   bool isLaunching = false;
@@ -273,8 +274,32 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, letterSpacing: 0.5),
                     ),
                   );
-                }
+                },
               ),
+
+              // MARK AS READ button - only show if not completed
+              if (onMarkRead != null) ...[
+                SizedBox(height: 12),
+                OutlinedButton.icon(
+                  onPressed: () {
+                    onMarkRead();
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.check_circle_outline),
+                  label: const Text(
+                    'MARK AS READ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, letterSpacing: 0.5),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: RpgColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    side: BorderSide(color: RpgColors.primary, width: 2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         );
@@ -288,6 +313,7 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
     if (user == null) return SizedBox();
 
     final currentUnit = user.currentUnit;
+    final currentNode = user.currentNode;
 
     return Scaffold(
       backgroundColor: RpgColors.background,
@@ -301,28 +327,78 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
             itemCount: widget.curriculum.length,
             itemBuilder: (context, unitIdx) {
               final unit = widget.curriculum[unitIdx];
-              final bool isUnitUnlocked = unit.unitNumber <= currentUnit;
 
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Unit Header Card
-                  _buildUnitHeader(unit, isUnitUnlocked),
+                  // Unit Header Card - all units always unlocked
+                  _buildUnitHeader(unit, true),
                   SizedBox(height: 24),
                   
-                  // Serpentine tree nodes
-                  if (isUnitUnlocked)
-                    ...unit.nodes.asMap().entries.map((entry) {
-                      final nodeIdx = entry.key;
-                      final node = entry.value;
-                      
-                      final bool isCompleted = unit.unitNumber < currentUnit || 
-                          (unit.unitNumber == currentUnit && nodeIdx < 1); // Mock active node progression
+                  // Serpentine tree nodes - all visible
+                  ...unit.nodes.asMap().entries.map((entry) {
+                    final nodeIdx = entry.key;
+                    final node = entry.value;
 
-                      return _buildSerpentineNode(node, nodeIdx, isCompleted);
-                    })
-                  else
-                    _buildLockedPlaceholder(unit.category),
+                    // A node is completed if:
+                    // - its unit is fully past (unit < currentUnit), OR
+                    // - it's in the current unit and nodeIdx < currentNode
+                    final bool isCompleted = unit.unitNumber < currentUnit ||
+                        (unit.unitNumber == currentUnit && nodeIdx < currentNode);
+
+                    return _buildSerpentineNode(
+                      node,
+                      nodeIdx,
+                      isCompleted,
+                      onMarkRead: isCompleted
+                          ? null
+                          : () {
+                              ref.read(userProfileProvider.notifier).markTaskCompleted(
+                                unit.nodes.length,
+                                onLevelUp: (newLevel) {
+                                  if (!mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Row(
+                                        children: [
+                                          const Icon(Icons.arrow_upward, color: Colors.white),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            '🎉 Level Up! You are now Level $newLevel!',
+                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                      backgroundColor: const Color(0xff8b5cf6),
+                                      duration: const Duration(seconds: 3),
+                                      behavior: SnackBarBehavior.floating,
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                    ),
+                                  );
+                                },
+                              );
+                              // Show XP reward toast
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Row(
+                                    children: [
+                                      Icon(Icons.star, color: Colors.amber),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        '✅ Task completed! +50 XP • Streak updated 🔥',
+                                        style: TextStyle(fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  backgroundColor: const Color(0xff10b981),
+                                  duration: const Duration(seconds: 2),
+                                  behavior: SnackBarBehavior.floating,
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                                ),
+                              );
+                            },
+                    );
+                  }),
                   
                   SizedBox(height: 20),
                 ],
@@ -465,7 +541,7 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
     );
   }
 
-  Widget _buildSerpentineNode(PathNode node, int index, bool isCompleted) {
+  Widget _buildSerpentineNode(PathNode node, int index, bool isCompleted, {VoidCallback? onMarkRead}) {
     final double offset = sin(index * 1.5) * 60;
     
     // Antigravity physical squish factor calculations on scrolling velocity
@@ -485,7 +561,7 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
             alignment: Alignment.center,
             transform: Matrix4.diagonal3Values(squishX, squishY, 1.0),
             child: GestureDetector(
-              onTap: () => _showNodePopup(node, isCompleted),
+              onTap: () => _showNodePopup(node, isCompleted, onMarkRead: onMarkRead),
               child: Container(
                 width: 70,
                 height: 70,
@@ -521,31 +597,6 @@ class _LiquidScrollTreeScreenState extends ConsumerState<LiquidScrollTreeScreen>
     );
   }
 
-  Widget _buildLockedPlaceholder(String category) {
-    return Column(
-      children: List.generate(2, (index) {
-        final double offset = sin(index * 1.5) * 60;
-        return Transform.translate(
-          offset: Offset(offset, 0),
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 24.0),
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xfff3f4f6),
-                border: Border.all(color: RpgColors.border, width: 4),
-              ),
-              child: Center(
-                child: Icon(Icons.lock, color: RpgColors.textSecondary, size: 24),
-              ),
-            ),
-          ),
-        );
-      }),
-    );
-  }
 
   Widget _buildFloatingMascot() {
     return AnimatedBuilder(

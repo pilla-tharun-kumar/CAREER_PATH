@@ -36,13 +36,14 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       streakFreezeCount: fields[16] as int,
       activeTrack: fields[17] as String,
       currentUnit: fields[18] as int,
+      currentNode: fields[19] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(19)
+      ..writeByte(20)
       ..writeByte(0)
       ..write(obj.username)
       ..writeByte(1)
@@ -80,7 +81,9 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(17)
       ..write(obj.activeTrack)
       ..writeByte(18)
-      ..write(obj.currentUnit);
+      ..write(obj.currentUnit)
+      ..writeByte(19)
+      ..write(obj.currentNode);
   }
 
   @override

@@ -204,9 +204,86 @@ class UserProfileNotifier extends Notifier<UserProfile?> {
 
   Future<void> incrementUnit() async {
     if (state == null) return;
-    state = state!.copyWith(currentUnit: state!.currentUnit + 1);
+    state = state!.copyWith(currentUnit: state!.currentUnit + 1, currentNode: 0);
     await Hive.box<UserProfile>('profile').put('current_user', state!);
     _syncToRemote();
+  }
+
+  /// Marks the current task as completed.
+  /// Awards [xpReward] XP and updates the daily learning streak.
+  /// Calls [onLevelUp] if the user levels up.
+  Future<void> markTaskCompleted(
+    int totalNodesInUnit, {
+    int xpReward = 50,
+    required void Function(int newLevel) onLevelUp,
+  }) async {
+    if (state == null) return;
+
+    // 1. Advance progression
+    int nextNode = state!.currentNode + 1;
+    if (nextNode >= totalNodesInUnit) {
+      state = state!.copyWith(currentUnit: state!.currentUnit + 1, currentNode: 0);
+    } else {
+      state = state!.copyWith(currentNode: nextNode);
+    }
+
+    // 2. Update daily streak
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    int generalStreak = state!.streak;
+    final lastActive = state!.lastActiveDate;
+
+    if (lastActive == null) {
+      generalStreak = 1;
+    } else {
+      final lastActiveDay = DateTime(lastActive.year, lastActive.month, lastActive.day);
+      final difference = today.difference(lastActiveDay).inDays;
+      if (difference == 1) {
+        generalStreak += 1;        // consecutive day — extend streak
+      } else if (difference == 0) {
+        // Same day — streak unchanged, already active today
+      } else {
+        generalStreak = 1;         // missed days — reset streak
+      }
+    }
+
+    state = state!.copyWith(
+      streak: generalStreak,
+      readingStreak: state!.readingStreak + 1,
+      lastActiveDate: today,
+    );
+
+    // 3. Award XP (may trigger level-up)
+    int newXp = state!.xp + xpReward;
+    int newLevel = state!.level;
+    int newRequiredXp = state!.requiredXp;
+    bool leveledUp = false;
+
+    while (newXp >= newRequiredXp) {
+      newXp -= newRequiredXp;
+      newLevel++;
+      newRequiredXp = newLevel * 100 + 50;
+      leveledUp = true;
+    }
+
+    String newTitle = state!.title;
+    if (leveledUp) {
+      newTitle = UserProfile.getCharacterTitle(state!.avatarBase, newLevel);
+    }
+
+    state = state!.copyWith(
+      xp: newXp,
+      level: newLevel,
+      requiredXp: newRequiredXp,
+      title: newTitle,
+    );
+
+    await Hive.box<UserProfile>('profile').put('current_user', state!);
+    _syncToRemote();
+
+    if (leveledUp) {
+      onLevelUp(newLevel);
+    }
   }
 
   Future<void> updateUsernameAndAvatar(String username, String avatarBase) async {
@@ -246,6 +323,7 @@ class UserProfileNotifier extends Notifier<UserProfile?> {
         "streakFreezeCount": state!.streakFreezeCount,
         "activeTrack": state!.activeTrack,
         "currentUnit": state!.currentUnit,
+        "currentNode": state!.currentNode,
       },
     );
   }
