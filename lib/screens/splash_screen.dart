@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../core/theme.dart';
-import '../providers/auth_provider.dart';
-import 'login_screen.dart';
-import 'onboarding_screen.dart';
+
 import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -93,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     // Play a scale-out transition and navigate to MainAuthShell
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) => const MainAuthShell(),
+        pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           var curve = Curves.easeInOut;
 
@@ -127,10 +124,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         behavior: HitTestBehavior.opaque,
         child: Stack(
           children: [
-            // Interactive coding digital rain background
+            // Data Analyst stats dashboard background image
             Positioned.fill(
-              child: CustomPaint(
-                painter: DigitalRainPainter(),
+              child: Image.asset(
+                'assets/data_stats_bg.png',
+                fit: BoxFit.cover,
               ),
             ),
             
@@ -141,7 +139,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                   gradient: RadialGradient(
                     colors: [
                       Colors.transparent,
-                      RpgColors.background.withOpacity(0.8),
+                      RpgColors.background.withValues(alpha: 0.8),
                       RpgColors.background,
                     ],
                     stops: const [0.3, 0.8, 1.0],
@@ -180,7 +178,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: RpgColors.accent.withOpacity(0.3),
+                                  color: RpgColors.accent.withValues(alpha: 0.3),
                                   blurRadius: 25,
                                   spreadRadius: 5,
                                 ),
@@ -189,29 +187,29 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                               gradient: LinearGradient(
                                 colors: [
                                   RpgColors.accent,
-                                  RpgColors.accent.withOpacity(0.3),
+                                  RpgColors.accent.withValues(alpha: 0.3),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Icon(
-                                Icons.bolt,
+                                Icons.school,
                                 size: 55,
                                 color: Colors.white,
                               ),
                             ),
                           ),
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24),
                           // Game Name
-                          const Text(
-                            'LIFEQUEST',
+                          Text(
+                            'MyCareer',
                             style: TextStyle(
                               fontSize: 38,
                               fontWeight: FontWeight.w900,
                               color: Colors.white,
-                              letterSpacing: 8,
+                              letterSpacing: 4,
                               shadows: [
                                 Shadow(
                                   color: RpgColors.accent,
@@ -221,13 +219,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                               ],
                             ),
                           ),
-                          const Text(
-                            'PRODUCTIVITY RPG',
+                          Text(
+                            'E-LEARNING PLATFORM',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
                               color: RpgColors.textSecondary,
-                              letterSpacing: 6,
+                              letterSpacing: 4,
                             ),
                           ),
                         ],
@@ -239,7 +237,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
                   // Loading and Interactive Tap Actions
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 48),
+                    padding: EdgeInsets.symmetric(horizontal: 48),
                     child: Column(
                       children: [
                         if (!_isLoaded) ...[
@@ -248,9 +246,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                             height: 6,
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.05),
+                              color: Colors.white.withValues(alpha: 0.05),
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.white.withOpacity(0.1), width: 0.5),
+                              border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 0.5),
                             ),
                             child: Align(
                               alignment: Alignment.centerLeft,
@@ -258,13 +256,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                 widthFactor: _loadingProgress,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
+                                    gradient: LinearGradient(
                                       colors: [RpgColors.accent, Colors.cyan],
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: RpgColors.accent.withOpacity(0.5),
+                                        color: RpgColors.accent.withValues(alpha: 0.5),
                                         blurRadius: 8,
                                         spreadRadius: 1,
                                       ),
@@ -274,7 +272,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                               ),
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16),
                         ],
                         
                         // Status or Interactive prompt
@@ -287,7 +285,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        const Text(
+                                        Text(
                                           'PRESS TO START',
                                           style: TextStyle(
                                             color: Colors.white,
@@ -303,11 +301,11 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                             ],
                                           ),
                                         ),
-                                        const SizedBox(height: 4),
+                                        SizedBox(height: 4),
                                         Text(
                                           'TAP ANYWHERE ON SCREEN',
                                           style: TextStyle(
-                                            color: Colors.cyan.withOpacity(0.7),
+                                            color: Colors.cyan.withValues(alpha: 0.7),
                                             fontSize: 10,
                                             letterSpacing: 1,
                                           ),
@@ -317,7 +315,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                                   )
                                 : Text(
                                     _currentTip,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: RpgColors.textSecondary,
                                       fontSize: 11,
                                       fontWeight: FontWeight.bold,
@@ -330,7 +328,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
@@ -363,7 +361,7 @@ class DigitalRainPainter extends CustomPainter {
       }
       
       final paint = Paint()
-        ..color = RpgColors.accent.withOpacity(drop.opacity)
+        ..color = RpgColors.accent.withValues(alpha: drop.opacity)
         ..style = PaintingStyle.fill;
 
       // Draw trailing neon binary symbols
@@ -373,8 +371,8 @@ class DigitalRainPainter extends CustomPainter {
 
         double symbolOpacity = drop.opacity * (1.0 - (i / drop.length));
         paint.color = (i == 0) 
-            ? Colors.cyan.withOpacity(symbolOpacity) // head is bright cyan
-            : RpgColors.accent.withOpacity(symbolOpacity * 0.4);
+            ? Colors.cyan.withValues(alpha: symbolOpacity) // head is bright cyan
+            : RpgColors.accent.withValues(alpha: symbolOpacity * 0.4);
 
         final textPainter = TextPainter(
           text: TextSpan(
@@ -387,7 +385,7 @@ class DigitalRainPainter extends CustomPainter {
               shadows: [
                 if (i == 0)
                   Shadow(
-                    color: Colors.cyan.withOpacity(0.8),
+                    color: Colors.cyan.withValues(alpha: 0.8),
                     blurRadius: 5,
                   ),
               ],
@@ -435,21 +433,4 @@ class RainDrop {
   }
 }
 
-// Shell Widget which handles state management post-splash screen
-class MainAuthShell extends ConsumerWidget {
-  const MainAuthShell({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authProvider);
-
-    switch (authState) {
-      case AuthState.unauthenticated:
-        return const LoginScreen();
-      case AuthState.onboarding:
-        return const OnboardingScreen();
-      case AuthState.authenticated:
-        return const HomeScreen();
-    }
-  }
-}

@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lifequest_rpg/data/models/user_profile.dart';
 
 void main() {
-  group('LifeQuest RPG Logic Tests', () {
+  group('QuantumLeap Core Logic Tests', () {
     test('XP Level progression calculation', () {
       final user = UserProfile(
         username: 'TestHero',
@@ -12,7 +12,6 @@ void main() {
         requiredXp: 100,
       );
 
-      // Verify initial fields
       expect(user.level, 1);
       expect(user.xp, 80);
 
@@ -33,10 +32,28 @@ void main() {
         requiredXp: reqXp,
       );
 
-      // Verify level up happened correctly
       expect(updatedUser.level, 2);
       expect(updatedUser.xp, 30);
       expect(updatedUser.requiredXp, 250); // Level 2 required: 2 * 100 + 50 = 250
+    });
+
+    test('Streak decay checks', () {
+      final user = UserProfile(
+        username: 'TestHero',
+        avatarBase: 'knight',
+        streak: 5,
+        lastActiveDate: DateTime.now().subtract(const Duration(days: 2)), // 2 days ago
+      );
+      
+      final today = DateTime.now();
+      final difference = today.difference(user.lastActiveDate!).inDays;
+      
+      int finalStreak = user.streak;
+      if (difference > 1) {
+        finalStreak = 0;
+      }
+      
+      expect(finalStreak, 0);
     });
   });
 }

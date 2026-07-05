@@ -49,6 +49,18 @@ class UserProfile extends HiveObject {
   @HiveField(14)
   final int fitnessStreak;
 
+  @HiveField(15)
+  final int hearts;
+
+  @HiveField(16)
+  final int streakFreezeCount;
+
+  @HiveField(17)
+  final String activeTrack;
+
+  @HiveField(18)
+  final int currentUnit;
+
   UserProfile({
     required this.username,
     this.level = 1,
@@ -65,7 +77,21 @@ class UserProfile extends HiveObject {
     this.readingStreak = 0,
     this.codingStreak = 0,
     this.fitnessStreak = 0,
+    this.hearts = 5,
+    this.streakFreezeCount = 0,
+    this.activeTrack = 'Excel',
+    this.currentUnit = 1,
   });
+
+  static String getCharacterTitle(String avatarBase, int level) {
+    if (level < 3) return 'Excel Novice';
+    if (level < 6) return 'SQL Scholar';
+    if (level < 9) return 'Python Wrangler';
+    if (level < 12) return 'BI Specialist';
+    if (level < 15) return 'Data Analyst';
+    return 'Senior Analytics Fellow';
+  }
+
 
   UserProfile copyWith({
     String? username,
@@ -83,6 +109,10 @@ class UserProfile extends HiveObject {
     int? readingStreak,
     int? codingStreak,
     int? fitnessStreak,
+    int? hearts,
+    int? streakFreezeCount,
+    String? activeTrack,
+    int? currentUnit,
   }) {
     return UserProfile(
       username: username ?? this.username,
@@ -100,6 +130,10 @@ class UserProfile extends HiveObject {
       readingStreak: readingStreak ?? this.readingStreak,
       codingStreak: codingStreak ?? this.codingStreak,
       fitnessStreak: fitnessStreak ?? this.fitnessStreak,
+      hearts: hearts ?? this.hearts,
+      streakFreezeCount: streakFreezeCount ?? this.streakFreezeCount,
+      activeTrack: activeTrack ?? this.activeTrack,
+      currentUnit: currentUnit ?? this.currentUnit,
     );
   }
 }

@@ -8,9 +8,43 @@ class UserProfileNotifier extends Notifier<UserProfile?> {
   UserProfile? build() {
     final box = Hive.box<UserProfile>('profile');
     if (box.isNotEmpty) {
-      return box.get('current_user');
+      final user = box.get('current_user');
+      if (user != null) {
+        Future.microtask(() => checkStreakDecay());
+        return user;
+      }
     }
-    return null;
+    
+    // Create a default user profile since we skipped onboarding
+    final defaultUser = UserProfile(
+      username: 'Guest',
+      avatarBase: 'knight',
+    );
+    
+    Future.microtask(() => box.put('current_user', defaultUser));
+    return defaultUser;
+  }
+
+  Future<void> checkStreakDecay() async {
+    if (state == null || state!.lastActiveDate == null) return;
+
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final lastActiveDay = DateTime(state!.lastActiveDate!.year, state!.lastActiveDate!.month, state!.lastActiveDate!.day);
+    final difference = today.difference(lastActiveDay).inDays;
+
+    if (difference > 1) {
+      if (state!.streakFreezeCount > 0) {
+        state = state!.copyWith(
+          streakFreezeCount: state!.streakFreezeCount - 1,
+          lastActiveDate: today.subtract(const Duration(days: 1)),
+        );
+      } else {
+        state = state!.copyWith(streak: 0);
+      }
+      await Hive.box<UserProfile>('profile').put('current_user', state!);
+      _syncToRemote();
+    }
   }
 
   Future<void> addXp(int amount, {required void Function(int newLevel) onLevelUp}) async {
@@ -28,10 +62,16 @@ class UserProfileNotifier extends Notifier<UserProfile?> {
       leveledUp = true;
     }
 
+    String newTitle = state!.title;
+    if (leveledUp) {
+      newTitle = UserProfile.getCharacterTitle(state!.avatarBase, newLevel);
+    }
+
     state = state!.copyWith(
       xp: newXp,
       level: newLevel,
       requiredXp: newRequiredXp,
+      title: newTitle,
     );
     await Hive.box<UserProfile>('profile').put('current_user', state!);
     _syncToRemote();
@@ -123,6 +163,64 @@ class UserProfileNotifier extends Notifier<UserProfile?> {
     await addCoins(amount);
   }
 
+  Future<void> deductHeart() async {
+    if (state == null) return;
+    if (state!.hearts > 0) {
+      state = state!.copyWith(hearts: state!.hearts - 1);
+      await Hive.box<UserProfile>('profile').put('current_user', state!);
+      _syncToRemote();
+    }
+  }
+
+  Future<void> restoreHeart() async {
+    if (state == null) return;
+    if (state!.hearts < 5) {
+      state = state!.copyWith(hearts: state!.hearts + 1);
+      await Hive.box<UserProfile>('profile').put('current_user', state!);
+      _syncToRemote();
+    }
+  }
+
+  Future<bool> buyStreakFreeze() async {
+    if (state == null) return false;
+    if (state!.streakFreezeCount >= 2) return false;
+    if (state!.coins < 500) return false;
+
+    state = state!.copyWith(
+      coins: state!.coins - 500,
+      streakFreezeCount: state!.streakFreezeCount + 1,
+    );
+    await Hive.box<UserProfile>('profile').put('current_user', state!);
+    _syncToRemote();
+    return true;
+  }
+
+  Future<void> setActiveTrack(String track) async {
+    if (state == null) return;
+    state = state!.copyWith(activeTrack: track, currentUnit: 1);
+    await Hive.box<UserProfile>('profile').put('current_user', state!);
+    _syncToRemote();
+  }
+
+  Future<void> incrementUnit() async {
+    if (state == null) return;
+    state = state!.copyWith(currentUnit: state!.currentUnit + 1);
+    await Hive.box<UserProfile>('profile').put('current_user', state!);
+    _syncToRemote();
+  }
+
+  Future<void> updateUsernameAndAvatar(String username, String avatarBase) async {
+    if (state == null) return;
+    final newTitle = UserProfile.getCharacterTitle(avatarBase, state!.level);
+    state = state!.copyWith(
+      username: username,
+      avatarBase: avatarBase,
+      title: newTitle,
+    );
+    await Hive.box<UserProfile>('profile').put('current_user', state!);
+    _syncToRemote();
+  }
+
   void _syncToRemote() {
     if (state == null) return;
     MongoSyncService.syncDocument(
@@ -144,6 +242,10 @@ class UserProfileNotifier extends Notifier<UserProfile?> {
         "codingStreak": state!.codingStreak,
         "fitnessStreak": state!.fitnessStreak,
         "readingStreak": state!.readingStreak,
+        "hearts": state!.hearts,
+        "streakFreezeCount": state!.streakFreezeCount,
+        "activeTrack": state!.activeTrack,
+        "currentUnit": state!.currentUnit,
       },
     );
   }

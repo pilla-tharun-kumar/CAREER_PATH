@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 import 'package:hive/hive.dart';
@@ -25,7 +26,7 @@ class MongoSyncService {
       await db.open().timeout(const Duration(seconds: 3));
       return true;
     } catch (e) {
-      print("❌ [MongoSync] Test connection failed: $e");
+      debugPrint("❌ [MongoSync] Test connection failed: $e");
       return false;
     } finally {
       if (db != null) {
@@ -72,11 +73,15 @@ class MongoSyncService {
       if (!success) {
         // Queue payload locally if connection failed
         await _pendingSyncsBox.put(DateTime.now().toIso8601String(), payloadString);
-        print("💾 [MongoSync] Offline: Queued quest/profile change locally.");
+        debugPrint("💾 [MongoSync] Offline: Queued quest/profile change locally.");
+      } else {
+        if (_pendingSyncsBox.isNotEmpty) {
+          Future.microtask(() => processOfflineQueue());
+        }
       }
     } catch (e) {
       await _pendingSyncsBox.put(DateTime.now().toIso8601String(), payloadString);
-      print("💾 [MongoSync] Connection Error: Queued change locally. ($e)");
+      debugPrint("💾 [MongoSync] Connection Error: Queued change locally. ($e)");
     }
   }
 
@@ -111,6 +116,10 @@ class MongoSyncService {
 
       if (!success) {
         await _pendingSyncsBox.put(DateTime.now().toIso8601String(), payloadString);
+      } else {
+        if (_pendingSyncsBox.isNotEmpty) {
+          Future.microtask(() => processOfflineQueue());
+        }
       }
     } catch (e) {
       await _pendingSyncsBox.put(DateTime.now().toIso8601String(), payloadString);
@@ -123,7 +132,7 @@ class MongoSyncService {
       return;
     }
 
-    print("🔄 [MongoSync] Checking offline queue: ${_pendingSyncsBox.length} tasks pending...");
+    debugPrint("🔄 [MongoSync] Checking offline queue: ${_pendingSyncsBox.length} tasks pending...");
     final keys = List<String>.from(_pendingSyncsBox.keys);
 
     for (var key in keys) {
@@ -143,13 +152,13 @@ class MongoSyncService {
         );
         if (success) {
           await _pendingSyncsBox.delete(key);
-          print("✅ [MongoSync] Successfully synced queued task: $key");
+          debugPrint("✅ [MongoSync] Successfully synced queued task: $key");
         } else {
           // Break cycle if server is still unreachable
           break;
         }
       } catch (e) {
-        print("⚠️ [MongoSync] Error running queued task: $e");
+        debugPrint("⚠️ [MongoSync] Error running queued task: $e");
         await _pendingSyncsBox.delete(key); // clear corrupted task
       }
     }
@@ -181,7 +190,7 @@ class MongoSyncService {
       
       return false;
     } catch (e) {
-      print("❌ [MongoSync] Database Connection Exception: $e");
+      debugPrint("❌ [MongoSync] Database Connection Exception: $e");
       return false;
     } finally {
       if (db != null) {

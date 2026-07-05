@@ -32,13 +32,17 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       readingStreak: fields[12] as int,
       codingStreak: fields[13] as int,
       fitnessStreak: fields[14] as int,
+      hearts: fields[15] as int,
+      streakFreezeCount: fields[16] as int,
+      activeTrack: fields[17] as String,
+      currentUnit: fields[18] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(15)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.username)
       ..writeByte(1)
@@ -68,7 +72,15 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(13)
       ..write(obj.codingStreak)
       ..writeByte(14)
-      ..write(obj.fitnessStreak);
+      ..write(obj.fitnessStreak)
+      ..writeByte(15)
+      ..write(obj.hearts)
+      ..writeByte(16)
+      ..write(obj.streakFreezeCount)
+      ..writeByte(17)
+      ..write(obj.activeTrack)
+      ..writeByte(18)
+      ..write(obj.currentUnit);
   }
 
   @override

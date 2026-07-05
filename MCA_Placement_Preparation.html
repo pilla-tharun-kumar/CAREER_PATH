@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MCA Placement Readiness — 6-Month Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #07090f;
+  --surface: #0f1320;
+  --surface2: #161d2e;
+  --border: #1e2a40;
+  --apt: #f97316;
+  --eng: #22d3ee;
+  --tech: #a78bfa;
+  --green: #34d399;
+  --red: #f87171;
+  --yellow: #fbbf24;
+  --text: #e2e8f0;
+  --muted: #4b6080;
+  --muted2: #8ba0bb;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+/* ---- HERO ---- */
+.hero {
+  background: linear-gradient(135deg, #060810 0%, #0d1525 40%, #0f0c1f 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 3.5rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(167,139,250,0.07) 0%, transparent 55%),
+              radial-gradient(ellipse at 25% 70%, rgba(249,115,22,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--tech);
+  border: 1px solid var(--tech);
+  border-radius: 20px;
+  padding: 3px 16px;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.12em;
+}
+.hero h1 {
+  font-size: clamp(1.9rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #f1f5f9 20%, #a78bfa 60%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+.hero p { color: var(--muted2); font-size: 0.98rem; max-width: 580px; margin: 0 auto 1.8rem; }
+.stats-row { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+.stat-pill {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 5px 16px;
+  font-size: 0.78rem;
+  color: var(--muted2);
+  display: flex; align-items: center; gap: 6px;
+}
+.stat-pill .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ---- LEGEND ---- */
+.legend { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; padding: 0.9rem 2rem; border-bottom: 1px solid var(--border); background: var(--surface); }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--muted2); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+/* ---- NAV ---- */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,9,15,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 1.5rem;
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  background: none; border: none; color: var(--muted);
+  font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+  padding: 13px 14px; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--tech); border-bottom-color: var(--tech); }
+
+/* ---- CONTAINER ---- */
+.container { max-width: 960px; margin: 0 auto; padding: 2rem; }
+
+/* ---- PHASE BLOCK ---- */
+.phase-block { margin-bottom: 3.5rem; }
+.phase-header {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.5rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.phase-number {
+  font-family: var(--mono); font-size: 0.68rem; font-weight: 500;
+  border-radius: 4px; padding: 3px 10px; letter-spacing: 0.08em; white-space: nowrap;
+}
+.pn-apt  { color: var(--apt);  border: 1px solid var(--apt); }
+.pn-eng  { color: var(--eng);  border: 1px solid var(--eng); }
+.pn-tech { color: var(--tech); border: 1px solid var(--tech); }
+.pn-all  { color: var(--green); border: 1px solid var(--green); }
+.pn-gold { color: var(--yellow); border: 1px solid var(--yellow); }
+
+.phase-title { font-size: 1.25rem; font-weight: 600; color: var(--text); flex: 1; }
+.phase-meta { margin-left: auto; font-size: 0.72rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+
+/* ---- WEEK CARD ---- */
+.week-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 1rem; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.week-card:hover { border-color: #2a3a55; }
+.week-toggle {
+  width: 100%; background: none; border: none; color: var(--text);
+  font-family: var(--sans); cursor: pointer;
+  padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 12px; text-align: left;
+}
+.week-label { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); min-width: 75px; }
+.week-title { font-size: 0.92rem; font-weight: 500; color: var(--text); flex: 1; }
+.week-badge {
+  font-size: 0.66rem; padding: 2px 10px; border-radius: 20px;
+  font-weight: 500; white-space: nowrap;
+}
+.badge-apt    { background: rgba(249,115,22,0.12); color: #fdba74; border: 1px solid rgba(249,115,22,0.25); }
+.badge-eng    { background: rgba(34,211,238,0.10); color: #67e8f9; border: 1px solid rgba(34,211,238,0.2); }
+.badge-tech   { background: rgba(167,139,250,0.12); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.2); }
+.badge-all    { background: rgba(52,211,153,0.10); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.2); }
+.badge-mock   { background: rgba(251,191,36,0.10); color: #fcd34d; border: 1px solid rgba(251,191,36,0.2); }
+.badge-ds     { background: rgba(167,139,250,0.12); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.2); }
+
+.chevron-icon { color: var(--muted); font-size: 0.72rem; transition: transform 0.2s; margin-left: 4px; }
+.week-card.open .chevron-icon { transform: rotate(180deg); }
+.week-body { display: none; padding: 0 1.25rem 1.25rem; }
+.week-card.open .week-body { display: block; }
+
+/* ---- DAY SECTION ---- */
+.day-section { margin-bottom: 1.25rem; }
+.day-label {
+  font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+  margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px;
+}
+.day-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.dl-apt  { color: var(--apt); }
+.dl-eng  { color: var(--eng); }
+.dl-tech { color: var(--tech); }
+.dl-all  { color: var(--green); }
+
+/* ---- TASK ITEM ---- */
+.task-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 8px 10px; border-radius: 8px; margin-bottom: 4px;
+  cursor: pointer; transition: background 0.15s;
+}
+.task-item:hover { background: var(--surface2); }
+.task-check {
+  width: 16px; height: 16px; border: 1.5px solid var(--muted);
+  border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.task-item.done .task-check { background: var(--green); border-color: var(--green); }
+.task-item.done .task-check::after { content: '✓'; font-size: 10px; color: #07090f; font-weight: 700; }
+.task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
+.task-text { font-size: 0.875rem; color: var(--muted2); line-height: 1.5; flex: 1; }
+.task-text strong { color: var(--text); font-weight: 500; }
+.task-link {
+  color: var(--tech);
+  text-decoration: none; font-size: 0.75rem; font-family: var(--mono);
+  border: 1px solid rgba(167,139,250,0.3); border-radius: 4px;
+  padding: 1px 8px; white-space: nowrap; margin-top: 3px; display: inline-block;
+  transition: background 0.15s;
+}
+.task-link:hover { background: rgba(167,139,250,0.1); }
+.task-note { font-size: 0.75rem; color: var(--muted); margin-top: 2px; font-style: italic; }
+
+/* ---- TIP BOX ---- */
+.tip {
+  font-size: 0.78rem; color: var(--muted2);
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 12px; margin-bottom: 1rem; font-style: italic;
+}
+
+/* ---- SECTION HEADING ---- */
+.section-h {
+  font-size: 0.68rem; font-family: var(--mono); color: var(--muted);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  margin: 1.5rem 0 0.75rem;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-h::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ---- RESOURCE GRID ---- */
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+.res-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 0.85rem 1rem; }
+.res-name { font-size: 0.83rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.res-desc { font-size: 0.75rem; color: var(--muted2); margin-bottom: 6px; }
+.res-link { color: var(--tech); text-decoration: none; font-size: 0.72rem; font-family: var(--mono); }
+.res-link:hover { text-decoration: underline; }
+.free-tag { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.2); border-radius: 4px; padding: 1px 6px; font-size: 0.6rem; font-weight: 600; margin-left: 4px; }
+
+/* ---- TRACKER CARD ---- */
+.tracker-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+.tracker-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.2rem 1.25rem;
+}
+.tc-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+.tc-apt   { color: var(--apt); }
+.tc-eng   { color: var(--eng); }
+.tc-tech  { color: var(--tech); }
+.tc-topics { font-size: 0.78rem; color: var(--muted2); line-height: 1.7; }
+.tc-topics span { display: block; }
+.tc-topics span::before { content: '→ '; color: var(--muted); }
+
+/* ---- MONTH OVERVIEW STRIP ---- */
+.month-strip { display: flex; gap: 3px; margin-bottom: 2rem; }
+.ms-item {
+  flex: 1; height: 4px; border-radius: 2px; background: var(--border);
+  cursor: pointer; position: relative; transition: background 0.2s;
+}
+.ms-item::after {
+  content: attr(data-label);
+  position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%);
+  font-size: 0.58rem; color: var(--muted); font-family: var(--mono); white-space: nowrap;
+}
+.ms-item.apt   { background: var(--apt); }
+.ms-item.eng   { background: var(--eng); }
+.ms-item.tech  { background: var(--tech); }
+.ms-item.mixed { background: linear-gradient(90deg, var(--apt), var(--tech)); }
+.ms-item.mock  { background: var(--green); }
+
+/* ---- SCROLL TOP ---- */
+.scroll-top {
+  position: fixed; bottom: 2rem; right: 2rem;
+  background: var(--tech); color: #07090f; border: none;
+  border-radius: 50%; width: 42px; height: 42px; cursor: pointer;
+  font-size: 1rem; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s; z-index: 200;
+  box-shadow: 0 4px 20px rgba(167,139,250,0.35);
+}
+.scroll-top.visible { opacity: 1; }
+
+/* ---- PROGRESS OVERVIEW ---- */
+.overview-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2rem; }
+.ov-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.2rem;
+  border-top: 3px solid;
+}
+.ov-apt  { border-top-color: var(--apt); }
+.ov-eng  { border-top-color: var(--eng); }
+.ov-tech { border-top-color: var(--tech); }
+.ov-title { font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem; }
+.ov-list { font-size: 0.75rem; color: var(--muted2); line-height: 1.9; }
+.ov-list li { list-style: none; padding-left: 12px; position: relative; }
+.ov-list li::before { content: '▸'; position: absolute; left: 0; color: var(--muted); }
+
+@media(max-width:640px) {
+  .container { padding: 1rem; }
+  .hero { padding: 2rem 1rem 1.5rem; }
+  .tracker-row, .overview-grid { grid-template-columns: 1fr; }
+  .res-grid { grid-template-columns: 1fr; }
+  .month-strip { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">6-MONTH PLACEMENT ROADMAP · MCA FRESHER · 2025</div>
+  <h1>MCA Placement Readiness Plan</h1>
+  <p>Aptitude · English · Technical — structured week-by-week to get you job-ready from zero to offer-ready.</p>
+  <div class="stats-row">
+    <div class="stat-pill"><span class="dot" style="background:var(--apt)"></span> Aptitude & Quant</div>
+    <div class="stat-pill"><span class="dot" style="background:var(--eng)"></span> English & Verbal</div>
+    <div class="stat-pill"><span class="dot" style="background:var(--tech)"></span> Technical (CS/MCA)</div>
+    <div class="stat-pill"><span class="dot" style="background:var(--green)"></span> Mock Tests & GDs</div>
+    <div class="stat-pill"><span class="dot" style="background:var(--yellow)"></span> 24 Weeks Structured</div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:var(--apt)"></span> Aptitude</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--eng)"></span> English / Verbal</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--tech)"></span> Technical (CS)</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span> Mock / Interview Prep</div>
+</div>
+
+<div class="nav" id="mainNav">
+  <button class="nav-btn active" onclick="scrollToPhase('phaseSetup', this)">🚀 Setup</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase1', this)">📐 Month 1-2: Aptitude</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase2', this)">📝 Month 3: English</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase3', this)">💻 Month 4-5: Technical</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase4', this)">🏁 Month 6: Full Prep</button>
+  <button class="nav-btn" onclick="scrollToPhase('phaseResources', this)">📚 Resources</button>
+</div>
+
+<div class="container">
+
+<!-- ======= SETUP ======= -->
+<div class="phase-block" id="phaseSetup">
+  <div class="phase-header">
+    <span class="phase-number pn-all">DAY 0</span>
+    <span class="phase-title">One-Time Setup — Do This Before Week 1</span>
+    <span class="phase-meta">Day 1 Checklist</span>
+  </div>
+  <div class="tip">⚡ Spend 2–3 hours on this. Setting the right accounts, tools, and mindset prevents wasted effort later.</div>
+
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">SETUP</span>
+      <span class="week-title">Accounts, Tools & Baseline Self-Assessment</span>
+      <span class="week-badge badge-all">Do Once</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-all">ASSESSMENT PLATFORMS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create an IndiaBIX account</strong> — free aptitude, English, C/Java/Python tests</div><a href="https://www.indiabix.com" target="_blank" class="task-link">→ indiabix.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create a PrepInsta account</strong> — company-specific placement papers (TCS, Infosys, Wipro, Accenture)</div><a href="https://prepinsta.com" target="_blank" class="task-link">→ prepinsta.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Register on GeeksforGeeks</strong> — DSA, CS theory, interview prep all in one place</div><a href="https://www.geeksforgeeks.org" target="_blank" class="task-link">→ geeksforgeeks.org</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create a LeetCode account</strong> — coding practice for technical rounds</div><a href="https://leetcode.com" target="_blank" class="task-link">→ leetcode.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Sign up on HackerRank</strong> — get the verified Problem Solving and Python badges</div><a href="https://www.hackerrank.com" target="_blank" class="task-link">→ hackerrank.com</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-all">TOOLS & ORGANIZATION</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create a Notion workspace</strong> for notes — make sections: Aptitude Formulas, Vocab List, CS Concepts, Interview Q&A</div><a href="https://notion.so" target="_blank" class="task-link">→ notion.so</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Download Anki</strong> (free flashcard app) — use for vocabulary, aptitude formulas, and OS/DBMS/CN concepts</div><a href="https://apps.ankiweb.net" target="_blank" class="task-link">→ apps.ankiweb.net</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create a GitHub account</strong> — keep all your coding practice here (shows employers your consistency)</div><a href="https://github.com" target="_blank" class="task-link">→ github.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Update your LinkedIn profile</strong> — Headline: "MCA Student | Aspiring Software Developer | Placement 2025"</div><a href="https://linkedin.com" target="_blank" class="task-link">→ linkedin.com</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-all">DIAGNOSTIC TEST (take before studying anything)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Take a 30-question IndiaBIX Aptitude test</strong> — note which topics you scored below 60%</div><a href="https://www.indiabix.com/aptitude/questions-and-answers/" target="_blank" class="task-link">→ Take Test</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Take a 20-question IndiaBIX English test</strong> — identify weak zones (grammar vs vocab vs RC)</div><a href="https://www.indiabix.com/verbal-ability/questions-and-answers/" target="_blank" class="task-link">→ Take Test</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Note your weak areas</strong> in Notion — this becomes your priority list for Month 1</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT TO EXPECT OVERVIEW -->
+  <div class="section-h">6-MONTH AT A GLANCE</div>
+  <div class="overview-grid">
+    <div class="ov-card ov-apt">
+      <div class="ov-title" style="color:var(--apt)">🔢 Aptitude (Months 1–2)</div>
+      <ul class="ov-list">
+        <li>Number System & HCF/LCM</li>
+        <li>Percentages, Profit & Loss</li>
+        <li>Time, Speed & Distance</li>
+        <li>Time & Work</li>
+        <li>Ratio & Proportions</li>
+        <li>Permutation & Combination</li>
+        <li>Probability</li>
+        <li>Data Interpretation</li>
+        <li>Logical Reasoning</li>
+        <li>Puzzles & Seating Arrangement</li>
+      </ul>
+    </div>
+    <div class="ov-card ov-eng">
+      <div class="ov-title" style="color:var(--eng)">📝 English (Month 3)</div>
+      <ul class="ov-list">
+        <li>Vocabulary & Synonyms/Antonyms</li>
+        <li>Reading Comprehension</li>
+        <li>Sentence Correction</li>
+        <li>Fill in the Blanks</li>
+        <li>Para Jumbles</li>
+        <li>Error Detection</li>
+        <li>Idioms & Phrases</li>
+        <li>Communication Skills</li>
+        <li>Email & Resume Writing</li>
+        <li>GD & Interview Communication</li>
+      </ul>
+    </div>
+    <div class="ov-card ov-tech">
+      <div class="ov-title" style="color:var(--tech)">💻 Technical (Months 4–5)</div>
+      <ul class="ov-list">
+        <li>C Programming + OOP (C++/Java)</li>
+        <li>Data Structures & Algorithms</li>
+        <li>DBMS + SQL Queries</li>
+        <li>Operating Systems</li>
+        <li>Computer Networks</li>
+        <li>Software Engineering</li>
+        <li>Python Basics</li>
+        <li>LeetCode Easy/Medium Problems</li>
+        <li>System Design Basics</li>
+        <li>MCA Project + Resume Polish</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ======= MONTH 1-2: APTITUDE ======= -->
+<div class="phase-block" id="phase1">
+  <div class="phase-header">
+    <span class="phase-number pn-apt">MONTHS 1–2</span>
+    <span class="phase-title">Quantitative Aptitude & Logical Reasoning</span>
+    <span class="phase-meta">Weeks 1–8</span>
+  </div>
+  <div class="tip">🎯 Goal: Score 80%+ in aptitude sections. Practice minimum 30 questions daily. Maintain a formula sheet in Notion.</div>
+
+  <!-- WEEK 1 -->
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 1</span>
+      <span class="week-title">Number System, HCF/LCM & Simplification</span>
+      <span class="week-badge badge-apt">Aptitude Core</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS TO LEARN</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Number Types:</strong> Natural, Whole, Integer, Rational, Irrational, Prime, Composite — definitions + examples</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Divisibility Rules</strong> (2 to 13) — memorize all and practice with 3-digit numbers</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>HCF & LCM:</strong> Prime factorization method + shortcut formula (HCF × LCM = Product of two numbers)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Simplification (BODMAS)</strong> — practice 20 questions; focus on fractions and square roots</div><a href="https://www.indiabix.com/aptitude/simplification/" target="_blank" class="task-link">→ Practice</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">DAILY PRACTICE TARGETS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Mon–Fri:</strong> 30 questions/day from IndiaBIX — Number System section</div><a href="https://www.indiabix.com/aptitude/numbers/" target="_blank" class="task-link">→ Start Here</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Sat–Sun:</strong> Take 1 full timed mock (60 min, 50 questions) on PrepInsta</div><a href="https://prepinsta.com/aptitude-mock-test/" target="_blank" class="task-link">→ Mock Tests</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Add all new formulas to Notion formula sheet</strong> — review this sheet every morning for 10 minutes</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 2</span>
+      <span class="week-title">Percentages, Profit & Loss, Discounts</span>
+      <span class="week-badge badge-apt">Aptitude Core</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS TO MASTER</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Percentage conversions</strong> — memorize fraction-to-percent table (1/8 = 12.5%, 1/6 = 16.67%, etc.) — saves huge time</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Profit & Loss formulas:</strong> CP, SP, Profit%, Loss%, Marked Price, Discount, Successive discount</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Shortcut tricks</strong> for compound percentages (e.g. +20% then -20% = net -4%, not 0)</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>30 questions/day:</strong> Percentages on Mon–Tue, Profit & Loss on Wed–Thu, Mixed on Fri</div><a href="https://www.indiabix.com/aptitude/profit-and-loss/" target="_blank" class="task-link">→ Practice</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Weekend mock test</strong> — set a 45-minute timer, attempt 40 Quant questions, analyze errors</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 3</span>
+      <span class="week-title">Time & Work, Pipes & Cisterns</span>
+      <span class="week-badge badge-apt">Aptitude Core</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Time & Work:</strong> Efficiency method (if A does in N days, 1 day work = 1/N) — core shortcut for all variations</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>MDH (Man-Day-Hour) formula</strong> — M1D1H1/W1 = M2D2H2/W2 for extended problems</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Pipes & Cisterns:</strong> Inlet/outlet concepts, combined rate formula</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Wages & proportional distribution</strong> in work problems (company favourite!)</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>30 questions/day</strong> from IndiaBIX Time & Work section</div><a href="https://www.indiabix.com/aptitude/time-and-work/" target="_blank" class="task-link">→ Practice</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Solve 10 Pipes & Cistern</strong> questions as bonus — they're the same concept</div><a href="https://www.indiabix.com/aptitude/pipes-and-cistern/" target="_blank" class="task-link">→ Practice</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 4</span>
+      <span class="week-title">Speed-Distance-Time, Boats & Trains</span>
+      <span class="week-badge badge-apt">Aptitude Core</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Speed = Distance / Time</strong> — unit conversions (km/hr to m/s: multiply by 5/18)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Relative speed:</strong> same direction (subtract), opposite direction (add) — applied to trains and boats</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Average Speed formula</strong> — 2ab/(a+b) when same distance at different speeds</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Boats & Streams:</strong> Upstream = Speed(boat) - Speed(stream), Downstream = Speed(boat) + Speed(stream)</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">END-OF-MONTH-1 CHECK</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Take a 100-question Quant mock test</strong> (timed: 70 minutes) — target score: 75+</div><a href="https://prepinsta.com/aptitude-mock-test/" target="_blank" class="task-link">→ Mock Test</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Review all weak topics</strong> — make a list, dedicate extra 30 min/day in Month 2 to those</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 5 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 5</span>
+      <span class="week-title">Ratio, Proportion, Mixtures & Alligation</span>
+      <span class="week-badge badge-apt">Aptitude Core</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Ratio & Proportion basics:</strong> Compounded ratio, Duplicate ratio, Inverse ratio — all types with examples</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Alligation Rule</strong> — cross-multiplication trick for mixture problems; practice 10 examples</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Partnership problems</strong> — profit split based on time × investment</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>30 questions/day from IndiaBIX</strong> — Ratio, Alligation sections</div><a href="https://www.indiabix.com/aptitude/ratio-and-proportion/" target="_blank" class="task-link">→ Practice</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 6 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 6</span>
+      <span class="week-title">Permutation, Combination & Probability</span>
+      <span class="week-badge badge-apt">Aptitude Advanced</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Fundamental Counting Principle, nPr, nCr</strong> — formula + Pascal's Triangle for combinations</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Arrangements:</strong> with repetition, without repetition, circular arrangements</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Probability basics:</strong> Classical, Conditional, Complementary, Independent events</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Card, Dice, Coin problems</strong> — these 3 sample spaces appear in 90% of placement Probability questions</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Solve company-tagged questions</strong> on PrepInsta — TCS & Infosys love P&C problems</div><a href="https://prepinsta.com/tcs-placement-papers/" target="_blank" class="task-link">→ TCS Papers</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 7 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 7</span>
+      <span class="week-title">Logical Reasoning — Series, Coding-Decoding, Blood Relations</span>
+      <span class="week-badge badge-apt">Logical Reasoning</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Number Series & Alphabet Series:</strong> difference patterns, square/cube series, combined patterns</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Coding-Decoding:</strong> Letter shift, symbol coding, word-to-number coding — spot the pattern systematically</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Blood Relations:</strong> Draw family trees for every problem — do not solve in your head</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Direction Sense:</strong> Always draw a compass before solving — North, South, East, West</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>30 Logical Reasoning questions/day</strong> from IndiaBIX</div><a href="https://www.indiabix.com/logical-reasoning/questions-and-answers/" target="_blank" class="task-link">→ Practice</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 8 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 8</span>
+      <span class="week-title">Puzzles, Seating Arrangement & Data Interpretation</span>
+      <span class="week-badge badge-apt">Logical Reasoning</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-apt">CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Seating Arrangement:</strong> Linear (one row, two rows) and Circular — always make a diagram on paper</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Syllogisms:</strong> Venn diagram method — faster than Aristotle's method for placements</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Data Interpretation:</strong> Bar graph, Pie chart, Line graph, Table — practice reading data quickly without calculator</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Clocks & Calendars</strong> — formula for angle between hands, odd days method for day of week</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-apt">END-OF-MONTH-2 MILESTONE TEST</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Take full TCS NQT Aptitude Mock</strong> (60 min, 26 questions) — target: 20+ correct</div><a href="https://prepinsta.com/tcs-nqt/" target="_blank" class="task-link">→ TCS NQT Mock</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Take Infosys Aptitude Mock</strong> — target: 75% score</div><a href="https://prepinsta.com/infosys/" target="_blank" class="task-link">→ Infosys Mock</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Revisit all error logs</strong> — your most repeated mistake types are your highest ROI to fix now</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======= MONTH 3: ENGLISH ======= -->
+<div class="phase-block" id="phase2">
+  <div class="phase-header">
+    <span class="phase-number pn-eng">MONTH 3</span>
+    <span class="phase-title">English Language & Communication Skills</span>
+    <span class="phase-meta">Weeks 9–12</span>
+  </div>
+  <div class="tip">🗣️ Companies test English for 20–30% of placement scores. Good English in interviews also boosts selection chances. Focus: vocabulary, grammar, and communication.</div>
+
+  <!-- WEEK 9 -->
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 9</span>
+      <span class="week-title">Vocabulary Building — Synonyms, Antonyms & Word Usage</span>
+      <span class="week-badge badge-eng">English</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-eng">DAILY VOCABULARY ROUTINE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn 10 new words/day</strong> using Vocabulary.com or Word Power Made Easy — total: 70 words by week end</div><a href="https://www.vocabulary.com" target="_blank" class="task-link">→ vocabulary.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>For each word, note:</strong> meaning, synonym, antonym, example sentence — add to Anki as flashcard</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice 20 Synonym/Antonym questions daily</strong> on IndiaBIX</div><a href="https://www.indiabix.com/verbal-ability/synonyms/" target="_blank" class="task-link">→ Practice</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Read 1 article daily</strong> from The Hindu (online, free) — underline unfamiliar words, look up meanings</div><a href="https://www.thehindu.com" target="_blank" class="task-link">→ The Hindu</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-eng">HIGH-FREQUENCY PLACEMENT WORDS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Prioritize these word groups:</strong> Adversity/Prosperity, Verbose/Terse, Benevolent/Malevolent, Candid/Evasive, Diligent/Indolent</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Root word method:</strong> Learn Latin/Greek roots (e.g. "mal" = bad, "bene" = good) — helps decode unknown words in tests</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 10 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 10</span>
+      <span class="week-title">Grammar — Sentence Correction, Tenses & Error Detection</span>
+      <span class="week-badge badge-eng">English</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-eng">GRAMMAR TOPICS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Tenses (12 types):</strong> Focus on Present Perfect, Past Perfect, and Conditionals — most-tested in placements</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Subject-Verb Agreement rules</strong> — collective nouns, indefinite pronouns, compound subjects</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Articles (a/an/the)</strong> — vowel sounds rule, proper nouns, superlatives — daily 10-question drill</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Prepositions & Conjunctions</strong> — "at/on/in" for time and place; subordinating conjunctions (although, unless, since)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Error Detection:</strong> Practice 20 sentences/day identifying Part A/B/C/D errors</div><a href="https://www.indiabix.com/verbal-ability/spotting-errors/" target="_blank" class="task-link">→ Practice</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 11 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 11</span>
+      <span class="week-title">Reading Comprehension & Para Jumbles</span>
+      <span class="week-badge badge-eng">English</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-eng">READING COMPREHENSION STRATEGY</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>RC Strategy:</strong> Read questions FIRST, then skim the passage → saves 2–3 minutes per set</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice 2 RC passages/day</strong> (200–300 words each) with 5 questions each — track your accuracy %</div><a href="https://www.indiabix.com/verbal-ability/reading-comprehension/" target="_blank" class="task-link">→ Practice</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Para Jumbles:</strong> Look for topic sentence (often general), connector words (however, therefore, furthermore), and conclusion signal words</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Fill in the Blanks:</strong> Context-based and grammar-based — 15 questions/day</div><a href="https://www.indiabix.com/verbal-ability/fill-in-the-blanks/" target="_blank" class="task-link">→ Practice</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 12 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 12</span>
+      <span class="week-title">Communication Skills — Email Writing, GD Topics & Interview English</span>
+      <span class="week-badge badge-eng">Communication</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-eng">WRITTEN COMMUNICATION</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice writing 1 formal email/day</strong> — topics: leave application, complaint, request, thank-you (post-interview)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Essay writing (200–300 words):</strong> AI in education, Work from home, Climate change, Social media impact — 2 essays/week</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Resume language:</strong> Use action verbs — "Developed, Implemented, Designed, Collaborated, Optimized" — not "Did" or "Made"</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-eng">SPEAKING & INTERVIEW ENGLISH</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Speak English for 15 minutes/day</strong> — record yourself on phone, listen back, identify fillers (um, uh, basically)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>GD Topics to prepare:</strong> 5G Technology, Remote Work Culture, Data Privacy, Startup vs MNC, AI replacing jobs — write 5 points for and against each</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Prepare your "Tell me about yourself"</strong> — 90-second script: Background → Skills → Projects → Goals (practice until natural)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>End-of-Month English Mock:</strong> Take full TCS English section mock (30 questions, 20 minutes)</div><a href="https://prepinsta.com/tcs-nqt/english/" target="_blank" class="task-link">→ TCS English Mock</a></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======= MONTH 4-5: TECHNICAL ======= -->
+<div class="phase-block" id="phase3">
+  <div class="phase-header">
+    <span class="phase-number pn-tech">MONTHS 4–5</span>
+    <span class="phase-title">Technical Preparation — CS Core & Coding</span>
+    <span class="phase-meta">Weeks 13–20</span>
+  </div>
+  <div class="tip">💻 Technical rounds test your CS fundamentals + coding ability. Start with C/Java, then move to DSA. Aim for 2 LeetCode problems per day from Week 15 onwards.</div>
+
+  <!-- WEEK 13 -->
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 13</span>
+      <span class="week-title">C Programming — Fundamentals, Pointers & Arrays</span>
+      <span class="week-badge badge-tech">Technical</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">MUST-KNOW C CONCEPTS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Pointers:</strong> Pointer declaration, pointer arithmetic, pointer to arrays, double pointers — these are asked in 80% of C interviews</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Memory:</strong> Stack vs Heap, malloc/calloc/realloc/free — write 3 programs using each</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Strings:</strong> strlen, strcpy, strcat, strcmp — implement them manually without library functions</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Structures & Unions:</strong> Difference between struct and union, size calculation, nested structs</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">CODING PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>HackerRank C domain:</strong> Complete Easy + Medium challenges — earn 3-star badge</div><a href="https://www.hackerrank.com/domains/c" target="_blank" class="task-link">→ Practice</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Programs to write:</strong> Reverse a string, Check palindrome, Fibonacci, Find duplicates in array, Matrix multiplication</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>C MCQs on IndiaBIX</strong> — 30 questions/day covering output-based and error-finding questions</div><a href="https://www.indiabix.com/c-programming/questions-and-answers/" target="_blank" class="task-link">→ C MCQs</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 14 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 14</span>
+      <span class="week-title">OOP Concepts — Java or C++ (Pick One)</span>
+      <span class="week-badge badge-tech">Technical</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">CORE OOP TOPICS (Java preferred for MCA)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>4 Pillars:</strong> Encapsulation, Abstraction, Inheritance, Polymorphism — explain each with a real-world example + code</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Java specifics:</strong> Interface vs Abstract class, method overloading vs overriding, static vs instance methods</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Exception Handling:</strong> try-catch-finally, custom exceptions, checked vs unchecked exceptions</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Collections Framework:</strong> ArrayList, LinkedList, HashMap, HashSet — when to use which</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>String class:</strong> String vs StringBuilder vs StringBuffer — immutability concept (very common interview Q)</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>HackerRank Java domain:</strong> Solve 30 problems — focus on OOP, strings, collections</div><a href="https://www.hackerrank.com/domains/java" target="_blank" class="task-link">→ Java Practice</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>IndiaBIX Java MCQs</strong> — 25 questions/day (output-tracing questions are gold for interviews)</div><a href="https://www.indiabix.com/java/questions-and-answers/" target="_blank" class="task-link">→ Java MCQs</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 15-16 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEKS 15–16</span>
+      <span class="week-title">Data Structures — Arrays, Strings, Linked Lists, Stacks, Queues</span>
+      <span class="week-badge badge-ds">DSA</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">DATA STRUCTURES TO MASTER</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Arrays:</strong> Traversal, searching (linear & binary), sorting (bubble, selection, insertion, merge, quick) — know time complexities</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Linked List:</strong> Singly, doubly, circular — insert, delete, reverse, detect cycle (Floyd's algorithm)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Stack:</strong> Using array and linked list — applications: balanced parentheses, infix to postfix, undo operations</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Queue:</strong> Linear, Circular queue, Deque, Priority Queue — implementation and applications</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Hash Table:</strong> Hashing, collision resolution (chaining, open addressing) — HashMap implementation</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">LEETCODE CODING (START HERE)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Start LeetCode Easy problems</strong> — target: 2 problems/day. Begin with Array tag then Strings</div><a href="https://leetcode.com/problemset/?difficulty=EASY&page=1&topicSlugs=array" target="_blank" class="task-link">→ LeetCode Arrays</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Must-solve 20 problems:</strong> Two Sum, Valid Parentheses, Merge Sorted Array, Reverse String, Palindrome Check, Max Subarray, etc.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>GFG DSA Self-Paced course</strong> (free) — for theory + implementation side by side</div><a href="https://www.geeksforgeeks.org/data-structures/" target="_blank" class="task-link">→ GFG DSA</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 17-18 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEKS 17–18</span>
+      <span class="week-title">DBMS — SQL Queries, Normalization, Transactions</span>
+      <span class="week-badge badge-tech">Technical</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">DBMS THEORY (Very High Weightage in MCA Interviews)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>ER Diagrams:</strong> Entity, Attribute, Relationship — cardinality (1:1, 1:N, M:N) — draw 5 ER diagrams for real-world scenarios</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Normalization:</strong> 1NF, 2NF, 3NF, BCNF — understand functional dependencies; practice normalizing sample tables</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>ACID Properties:</strong> Atomicity, Consistency, Isolation, Durability — explain each with a bank transfer example</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Indexes, Keys:</strong> Primary, Foreign, Candidate, Super, Unique keys + B-tree indexing concept</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Joins:</strong> INNER, LEFT, RIGHT, FULL OUTER, SELF JOIN — write examples for each</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">SQL PRACTICE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>SQLZoo or HackerRank SQL:</strong> Complete all beginner + intermediate challenges</div><a href="https://www.hackerrank.com/domains/sql" target="_blank" class="task-link">→ HackerRank SQL</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Must-practice queries:</strong> GROUP BY + HAVING, subqueries, window functions (ROW_NUMBER, RANK), aggregate functions</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Company-asked SQL:</strong> "Find 2nd highest salary" (classic!), "Find employees with no manager", "Duplicate rows removal"</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 19 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 19</span>
+      <span class="week-title">Operating Systems & Computer Networks</span>
+      <span class="week-badge badge-tech">Technical</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">OPERATING SYSTEMS (Top Interview Topics)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Process vs Thread:</strong> Differences, PCB, thread lifecycle, multi-threading advantages</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>CPU Scheduling Algorithms:</strong> FCFS, SJF, Round Robin, Priority — calculate waiting time + turnaround time for each</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Deadlock:</strong> 4 Conditions (Mutual Exclusion, Hold & Wait, No Preemption, Circular Wait) + detection, prevention, avoidance (Banker's Algorithm)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Memory Management:</strong> Paging, Segmentation, Virtual Memory, Page Replacement (FIFO, LRU, Optimal)</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">COMPUTER NETWORKS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>OSI Model (7 layers):</strong> Name, function, and protocols at each layer — memorize mnemonic: "Please Do Not Throw Sausage Pizza Away"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>TCP vs UDP:</strong> Differences, when to use which (HTTP uses TCP; DNS uses UDP)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>IP Addressing:</strong> IPv4, subnetting, subnet mask, CIDR notation — practice 10 subnetting calculations</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>HTTP/HTTPS, DNS, DHCP, FTP, SSH</strong> — how each protocol works (conceptual, not implementation)</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 20 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 20</span>
+      <span class="week-title">Software Engineering, Python Basics & System Design Intro</span>
+      <span class="week-badge badge-tech">Technical</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">SOFTWARE ENGINEERING</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>SDLC Models:</strong> Waterfall, Agile, Spiral, V-model — when to use which; Agile/Scrum is most relevant today</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Design Patterns (know conceptually):</strong> Singleton, Factory, Observer, MVC — explain each in plain English</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Testing types:</strong> Unit, Integration, System, UAT, Black-box vs White-box testing</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">PYTHON (Bonus — High Demand)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Python basics in 5 days:</strong> Lists, Tuples, Dicts, Sets; List comprehension; Lambda functions; File I/O</div><a href="https://www.hackerrank.com/domains/python" target="_blank" class="task-link">→ HackerRank Python</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>OOP in Python:</strong> Classes, inheritance, dunder methods — write a mini project (Student Management System)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>GFG Python course</strong> (free) — complete in 1 week parallel to other topics</div><a href="https://www.geeksforgeeks.org/python-programming-language/" target="_blank" class="task-link">→ GFG Python</a></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======= MONTH 6: FULL INTEGRATION ======= -->
+<div class="phase-block" id="phase4">
+  <div class="phase-header">
+    <span class="phase-number pn-gold">MONTH 6</span>
+    <span class="phase-title">Mock Interviews, Company Prep & Final Polish</span>
+    <span class="phase-meta">Weeks 21–24</span>
+  </div>
+  <div class="tip">🏁 This is your sprint month. Switch from learning mode to exam mode. Simulate real placement conditions. Fix your resume. Practise HR rounds daily.</div>
+
+  <!-- WEEK 21 -->
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 21</span>
+      <span class="week-title">Full-Length Mock Tests — Company Simulations</span>
+      <span class="week-badge badge-mock">Mock Mode</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-all">COMPANY-SPECIFIC MOCKS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Monday:</strong> TCS NQT Full Mock (Aptitude + English + Programming Logic) — 90 minutes, strict timing</div><a href="https://prepinsta.com/tcs-nqt/" target="_blank" class="task-link">→ TCS NQT</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Wednesday:</strong> Infosys Placement Paper — Aptitude + Verbal + Puzzle</div><a href="https://prepinsta.com/infosys/" target="_blank" class="task-link">→ Infosys Mock</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Friday:</strong> Wipro NLTH Mock or Accenture Cognitive Assessment mock</div><a href="https://prepinsta.com/wipro/" target="_blank" class="task-link">→ Wipro Mock</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Error Analysis (every day after mock):</strong> Categorize wrong answers — "Careless", "Concept gap", "Time pressure" — fix accordingly</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 22 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 22</span>
+      <span class="week-title">Technical Interview Prep — 50 Common Questions</span>
+      <span class="week-badge badge-tech">Interview</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-tech">MUST-PREPARE TECHNICAL QUESTIONS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>OOP Questions (10):</strong> What is polymorphism? Difference between interface and abstract class? What is method hiding vs overriding? etc.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>DBMS Questions (10):</strong> What are ACID properties? Difference between DELETE and TRUNCATE? What is a view? Triggers vs Stored Procedures?</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>OS Questions (10):</strong> What is a deadlock? Difference between process and thread? What is virtual memory? Explain paging.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>CN Questions (10):</strong> What is the OSI model? Difference between TCP and UDP? What happens when you type google.com?</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>DSA Questions (10):</strong> Explain sorting algorithms and time complexities. What is a binary search tree? Reverse a linked list (code it live).</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-tech">CODING ROUND PREP</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>LeetCode Top Interview 150 list</strong> — solve 5 problems/day; focus on Easy and then Medium</div><a href="https://leetcode.com/studyplan/top-interview-150/" target="_blank" class="task-link">→ Top 150</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice explaining your approach</strong> out loud before writing code — interviewers care about your thinking process</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 23 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 23</span>
+      <span class="week-title">HR Round Prep, Resume Finalization & LinkedIn Polish</span>
+      <span class="week-badge badge-all">HR + Profile</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-all">HR INTERVIEW QUESTIONS TO PREPARE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>"Tell me about yourself"</strong> — 90-second structured answer: Name → MCA background → Skills → Projects → Career goal</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>"Why this company?"</strong> — Research the company before every interview: products, values, recent news, competitors</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>"Strengths & Weaknesses"</strong> — Be specific; for weakness, always follow up with how you're improving it</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>"Where do you see yourself in 5 years?"</strong> — Align with the company's growth; show ambition but realistic goals</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Situational questions (STAR method):</strong> Situation, Task, Action, Result — prepare 5 stories from college projects/internships</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-all">RESUME CHECKLIST</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>1-page resume only</strong> — use Novoresume or Overleaf (Jake's template) for clean, ATS-friendly format</div><a href="https://novoresume.com" target="_blank" class="task-link">→ Novoresume</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Must have sections:</strong> Contact Info → Summary (2 lines) → Education → Skills → Projects (2-3) → Certifications → Achievements</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Projects:</strong> Add GitHub link and a 2-line description of what problem it solves + tech stack used</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Skills section:</strong> Languages → Frameworks → Tools → Databases — be honest, only list what you can speak about confidently</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Proofread 3 times</strong> — zero spelling/grammar errors; have a friend or professor review it</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 24 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 24</span>
+      <span class="week-title">Final Week — Revision, Mock GD & Confidence Sprint</span>
+      <span class="week-badge badge-mock">Final Sprint</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label dl-all">FINAL REVISION PLAN</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Monday — Aptitude Blitz:</strong> Solve 60 mixed aptitude questions (all topics) in 45 minutes. Review Anki formula cards.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Tuesday — Technical Rapid Fire:</strong> Answer 50 technical MCQs (CS fundamentals) in 30 minutes</div><a href="https://www.geeksforgeeks.org/quiz-corner-gq/" target="_blank" class="task-link">→ GFG Quiz</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Wednesday — Mock GD:</strong> Join a friend/study group; pick a topic (e.g., "AI is a threat to jobs"), discuss 15 minutes — record and evaluate</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Thursday — Full Mock Interview:</strong> Ask a friend to interview you — 30 min technical + 15 min HR. Use Zoom/phone for realism.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Friday — English Polish:</strong> Review vocabulary Anki deck. Practice "Tell me about yourself" once more. Read 1 RC passage.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Weekend — Rest + Confidence:</strong> Light review only. Sleep 8 hours. Organize documents (certificates, resume copies, ID proofs).</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label dl-all">PRE-PLACEMENT CHECKLIST</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Resume printed (5 copies)</strong> + saved as PDF named "FirstName_LastName_Resume.pdf"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>LinkedIn profile updated</strong> with latest projects, skills, and a professional photo</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>GitHub has at least 2–3 project repositories</strong> with proper README files</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Professional email address set</strong> (firstname.lastname@gmail.com) — not "coolguy123@gmail.com"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Interview outfit ready</strong> — formal attire pressed and ready the night before</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======= RESOURCES ======= -->
+<div class="phase-block" id="phaseResources">
+  <div class="phase-header">
+    <span class="phase-number pn-all">RESOURCES</span>
+    <span class="phase-title">All Free Resources — Aptitude, English & Technical</span>
+    <span class="phase-meta">Full 6 Months</span>
+  </div>
+
+  <div class="section-h">APTITUDE & REASONING</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-name">IndiaBIX <span class="free-tag">FREE</span></div><div class="res-desc">Best site for Aptitude + Verbal + C/Java MCQs</div><a href="https://www.indiabix.com" target="_blank" class="res-link">→ indiabix.com</a></div>
+    <div class="res-card"><div class="res-name">PrepInsta <span class="free-tag">FREE</span></div><div class="res-desc">Company-specific placement papers (TCS, Infosys, Wipro)</div><a href="https://prepinsta.com" target="_blank" class="res-link">→ prepinsta.com</a></div>
+    <div class="res-card"><div class="res-name">Testbook <span class="free-tag">FREE</span></div><div class="res-desc">Aptitude + LR mock tests, topic-wise</div><a href="https://testbook.com" target="_blank" class="res-link">→ testbook.com</a></div>
+    <div class="res-card"><div class="res-name">Freshersworld <span class="free-tag">FREE</span></div><div class="res-desc">1000s of aptitude question papers from real placements</div><a href="https://www.freshersworld.com" target="_blank" class="res-link">→ freshersworld.com</a></div>
+  </div>
+
+  <div class="section-h">ENGLISH & VERBAL</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-name">Vocabulary.com <span class="free-tag">FREE</span></div><div class="res-desc">Gamified vocabulary learning — 10 words/day habit</div><a href="https://www.vocabulary.com" target="_blank" class="res-link">→ vocabulary.com</a></div>
+    <div class="res-card"><div class="res-name">Word Power Made Easy</div><div class="res-desc">Classic book by Norman Lewis — buy or download PDF</div><a href="https://www.amazon.in/Word-Power-Made-Easy-Complete/dp/0143424688" target="_blank" class="res-link">→ Amazon India</a></div>
+    <div class="res-card"><div class="res-name">The Hindu <span class="free-tag">FREE</span></div><div class="res-desc">1 editorial/day — best for RC practice + vocabulary in context</div><a href="https://www.thehindu.com" target="_blank" class="res-link">→ thehindu.com</a></div>
+    <div class="res-card"><div class="res-name">Grammarly <span class="free-tag">FREE</span></div><div class="res-desc">Write emails & essays; learn from corrections in real-time</div><a href="https://www.grammarly.com" target="_blank" class="res-link">→ grammarly.com</a></div>
+  </div>
+
+  <div class="section-h">TECHNICAL — CODING & CS CORE</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-name">GeeksforGeeks <span class="free-tag">FREE</span></div><div class="res-desc">DSA, OS, DBMS, CN, SE — best for MCA interview prep</div><a href="https://www.geeksforgeeks.org" target="_blank" class="res-link">→ geeksforgeeks.org</a></div>
+    <div class="res-card"><div class="res-name">LeetCode <span class="free-tag">FREE</span></div><div class="res-desc">Coding practice — start with Easy, aim for 100+ solved</div><a href="https://leetcode.com" target="_blank" class="res-link">→ leetcode.com</a></div>
+    <div class="res-card"><div class="res-name">HackerRank <span class="free-tag">FREE</span></div><div class="res-desc">C, Java, Python, SQL badges — add these to your resume</div><a href="https://www.hackerrank.com" target="_blank" class="res-link">→ hackerrank.com</a></div>
+    <div class="res-card"><div class="res-name">SQLZoo <span class="free-tag">FREE</span></div><div class="res-desc">Interactive SQL learning — covers JOINs, subqueries, aggregates</div><a href="https://sqlzoo.net" target="_blank" class="res-link">→ sqlzoo.net</a></div>
+    <div class="res-card"><div class="res-name">Neetcode.io <span class="free-tag">FREE</span></div><div class="res-desc">Structured DSA roadmap with video explanations for each problem</div><a href="https://neetcode.io" target="_blank" class="res-link">→ neetcode.io</a></div>
+    <div class="res-card"><div class="res-name">CS50 (Harvard) <span class="free-tag">FREE</span></div><div class="res-desc">Best free CS fundamentals course — adds weight to your resume</div><a href="https://cs50.harvard.edu" target="_blank" class="res-link">→ cs50.harvard.edu</a></div>
+  </div>
+
+  <div class="section-h">RESUME & PROFILE TOOLS</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-name">Novoresume <span class="free-tag">FREE</span></div><div class="res-desc">Clean, ATS-friendly resume templates — 1-page focused</div><a href="https://novoresume.com" target="_blank" class="res-link">→ novoresume.com</a></div>
+    <div class="res-card"><div class="res-name">Overleaf (Jake's Template) <span class="free-tag">FREE</span></div><div class="res-desc">LaTeX resume — most professional-looking fresher resume</div><a href="https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs" target="_blank" class="res-link">→ overleaf.com</a></div>
+    <div class="res-card"><div class="res-name">LinkedIn <span class="free-tag">FREE</span></div><div class="res-desc">Apply to jobs + network with seniors; add all certifications here</div><a href="https://linkedin.com" target="_blank" class="res-link">→ linkedin.com</a></div>
+    <div class="res-card"><div class="res-name">GitHub <span class="free-tag">FREE</span></div><div class="res-desc">Host projects, write READMEs, maintain a green commit history</div><a href="https://github.com" target="_blank" class="res-link">→ github.com</a></div>
+  </div>
+
+  <div class="section-h">MOCK INTERVIEW & GD TOOLS</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-name">Pramp <span class="free-tag">FREE</span></div><div class="res-desc">Peer-to-peer mock coding interviews — free, real experience</div><a href="https://www.pramp.com" target="_blank" class="res-link">→ pramp.com</a></div>
+    <div class="res-card"><div class="res-name">InterviewBit <span class="free-tag">FREE</span></div><div class="res-desc">Structured DSA + CS interview prep with mock sessions</div><a href="https://www.interviewbit.com" target="_blank" class="res-link">→ interviewbit.com</a></div>
+    <div class="res-card"><div class="res-name">AmbitionBox <span class="free-tag">FREE</span></div><div class="res-desc">Real interview experiences shared by candidates — company-specific</div><a href="https://www.ambitionbox.com" target="_blank" class="res-link">→ ambitionbox.com</a></div>
+    <div class="res-card"><div class="res-name">Glassdoor <span class="free-tag">FREE</span></div><div class="res-desc">Company reviews + interview questions database</div><a href="https://www.glassdoor.co.in" target="_blank" class="res-link">→ glassdoor.co.in</a></div>
+  </div>
+
+</div>
+
+</div><!-- end .container -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleWeek(card) {
+  card.classList.toggle('open');
+}
+function toggleTask(item) {
+  item.classList.toggle('done');
+  const key = item.querySelector('.task-text').textContent.trim().substring(0, 50);
+  try {
+    const stored = JSON.parse(localStorage.getItem('mcaRoadmapTasks') || '{}');
+    stored[key] = item.classList.contains('done');
+    localStorage.setItem('mcaRoadmapTasks', JSON.stringify(stored));
+  } catch(e) {}
+}
+function scrollToPhase(id, btn) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+window.addEventListener('load', () => {
+  try {
+    const stored = JSON.parse(localStorage.getItem('mcaRoadmapTasks') || '{}');
+    document.querySelectorAll('.task-item').forEach(item => {
+      const key = item.querySelector('.task-text')?.textContent.trim().substring(0, 50);
+      if (stored[key]) item.classList.add('done');
+    });
+  } catch(e) {}
+});
+</script>
+</body>
+</html>

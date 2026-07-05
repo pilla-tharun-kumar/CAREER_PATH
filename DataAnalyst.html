@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Data Analyst — 6-Month Fresher Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #08100f;
+  --surface: #0f1a18;
+  --surface2: #162421;
+  --border: #1c3330;
+  --accent: #10b981;
+  --accent2: #34d399;
+  --accent3: #6366f1;
+  --gold: #f59e0b;
+  --coral: #f43f5e;
+  --teal: #06b6d4;
+  --text: #e2e8f0;
+  --muted: #52736e;
+  --muted2: #94a3b8;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Space Grotesk', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ---- HEADER ---- */
+.hero {
+  background: linear-gradient(135deg, #060f0d 0%, #0a1f1a 40%, #0d1a2a 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(ellipse at 65% 35%, rgba(16,185,129,0.07) 0%, transparent 55%),
+              radial-gradient(ellipse at 25% 75%, rgba(99,102,241,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--accent2);
+  border: 1px solid rgba(52,211,153,0.4);
+  border-radius: 20px;
+  padding: 3px 14px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.12em;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, #e2e8f0 20%, #6ee7b7 60%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+}
+.hero p {
+  color: var(--muted2);
+  font-size: 0.95rem;
+  max-width: 580px;
+  margin: 0 auto 1.5rem;
+}
+.stats-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.stat-pill {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 5px 16px;
+  font-size: 0.78rem;
+  color: var(--muted2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stat-pill .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ---- NAV ---- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(8,16,15,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 14px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-btn:hover { color: var(--text); }
+.nav-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ---- LAYOUT ---- */
+.container { max-width: 960px; margin: 0 auto; padding: 2rem; }
+
+/* ---- PHASE HEADER ---- */
+.phase-block { margin-bottom: 3rem; }
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.phase-number {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--accent);
+  border: 1px solid rgba(16,185,129,0.4);
+  border-radius: 4px;
+  padding: 3px 10px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.phase-title { font-size: 1.25rem; font-weight: 600; color: var(--text); flex: 1; }
+.phase-meta { font-size: 0.78rem; color: var(--muted); font-family: var(--mono); white-space: nowrap; }
+
+/* ---- WEEK CARD ---- */
+.week-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.week-card:hover { border-color: #254d44; }
+.week-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: var(--sans);
+  cursor: pointer;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+.week-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  min-width: 70px;
+}
+.week-title { font-size: 0.95rem; font-weight: 500; color: var(--text); flex: 1; }
+.week-badge {
+  font-size: 0.68rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.badge-green  { background: rgba(16,185,129,0.12);  color: #6ee7b7; border: 1px solid rgba(16,185,129,0.2); }
+.badge-blue   { background: rgba(99,102,241,0.12);  color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2); }
+.badge-teal   { background: rgba(6,182,212,0.12);   color: #67e8f9; border: 1px solid rgba(6,182,212,0.2); }
+.badge-gold   { background: rgba(245,158,11,0.12);  color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
+.badge-coral  { background: rgba(244,63,94,0.12);   color: #fda4af; border: 1px solid rgba(244,63,94,0.2); }
+.badge-purple { background: rgba(139,92,246,0.12);  color: #c4b5fd; border: 1px solid rgba(139,92,246,0.2); }
+
+.chevron-icon { color: var(--muted); font-size: 0.75rem; transition: transform 0.2s; margin-left: 4px; }
+.week-card.open .chevron-icon { transform: rotate(180deg); }
+
+.week-body { display: none; padding: 0 1.25rem 1.25rem; }
+.week-card.open .week-body { display: block; }
+
+/* ---- DAY TASK ---- */
+.day-section { margin-bottom: 1.25rem; }
+.day-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--accent2);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.day-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.task-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.task-item:hover { background: var(--surface2); }
+.task-check {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid var(--muted);
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.task-item.done .task-check { background: var(--accent); border-color: var(--accent); }
+.task-item.done .task-check::after { content: '✓'; font-size: 10px; color: white; font-weight: 700; }
+.task-item.done .task-text { text-decoration: line-through; color: var(--muted); }
+.task-text { font-size: 0.875rem; color: var(--muted2); line-height: 1.5; flex: 1; }
+.task-text strong { color: var(--text); font-weight: 500; }
+.task-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-family: var(--mono);
+  border: 1px solid rgba(16,185,129,0.25);
+  border-radius: 4px;
+  padding: 1px 8px;
+  white-space: nowrap;
+  margin-top: 2px;
+  display: inline-block;
+  transition: background 0.15s;
+}
+.task-link:hover { background: rgba(16,185,129,0.1); }
+.task-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* ---- CERT CARD ---- */
+.cert-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.75rem;
+}
+.cert-title { font-size: 0.9rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.cert-meta { font-size: 0.78rem; color: var(--muted2); margin-bottom: 6px; }
+.cert-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.cert-link {
+  color: var(--accent2);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-family: var(--mono);
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: 4px;
+  padding: 2px 10px;
+  transition: background 0.15s;
+}
+.cert-link:hover { background: rgba(52,211,153,0.1); }
+
+/* ---- RESOURCE GRID ---- */
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.75rem; margin-top: 0.75rem; }
+.res-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+}
+.res-name { font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.res-desc { font-size: 0.78rem; color: var(--muted2); margin-bottom: 6px; }
+.res-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-family: var(--mono);
+}
+.free-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  background: rgba(16,185,129,0.1);
+  color: var(--accent2);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 3px;
+  padding: 0px 5px;
+  margin-left: 4px;
+  font-family: var(--mono);
+  vertical-align: middle;
+}
+.paid-tag {
+  display: inline-block;
+  font-size: 0.62rem;
+  background: rgba(245,158,11,0.1);
+  color: #fcd34d;
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: 3px;
+  padding: 0px 5px;
+  margin-left: 4px;
+  font-family: var(--mono);
+  vertical-align: middle;
+}
+
+/* ---- PARALLEL TRACK ---- */
+.parallel-track {
+  background: rgba(99,102,241,0.06);
+  border: 1px solid rgba(99,102,241,0.15);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  margin-top: 0.5rem;
+}
+.track-label {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent3);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+.track-item { font-size: 0.85rem; color: var(--muted2); margin-bottom: 4px; display: flex; gap: 8px; align-items: flex-start; }
+.track-item::before { content: '→'; color: var(--accent3); flex-shrink: 0; margin-top: 1px; }
+
+/* ---- SECTION HEADING ---- */
+.section-h {
+  font-size: 0.72rem;
+  font-family: var(--mono);
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 1.25rem 0 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-h::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ---- TIP ---- */
+.tip {
+  font-size: 0.8rem;
+  color: var(--muted2);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent3);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-bottom: 1rem;
+}
+
+/* ---- SCROLL TOP ---- */
+.scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 200;
+  box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+}
+.scroll-top.visible { opacity: 1; }
+
+@media (max-width: 640px) {
+  .container { padding: 1rem; }
+  .hero { padding: 2rem 1rem 1.5rem; }
+  .res-grid { grid-template-columns: 1fr; }
+  .phase-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">6-MONTH LEARNING ROADMAP · FRESHER EDITION · 2025</div>
+  <h1>Data Analyst</h1>
+  <p>Step-by-step weekly tasks · Tools · Certifications · Portfolio Projects · LinkedIn + Resume in parallel</p>
+  <div class="stats-row">
+    <div class="stat-pill"><span class="dot" style="background:#10b981"></span> 24 Weeks of Tasks</div>
+    <div class="stat-pill"><span class="dot" style="background:#6366f1"></span> 3 Certifications</div>
+    <div class="stat-pill"><span class="dot" style="background:#f59e0b"></span> 5 Portfolio Projects</div>
+    <div class="stat-pill"><span class="dot" style="background:#06b6d4"></span> Mostly Free Resources</div>
+    <div class="stat-pill"><span class="dot" style="background:#f43f5e"></span> LinkedIn + Resume Parallel</div>
+  </div>
+</div>
+
+<div class="nav" id="mainNav">
+  <button class="nav-btn active" onclick="scrollToPhase('phase0', this)">🚀 Setup</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase1', this)">📊 Month 1–2: Foundations</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase2', this)">🗄️ Month 3–4: SQL + Python</button>
+  <button class="nav-btn" onclick="scrollToPhase('phase3', this)">📈 Month 5–6: BI + Jobs</button>
+  <button class="nav-btn" onclick="scrollToPhase('phaseLinkedIn', this)">💼 LinkedIn</button>
+  <button class="nav-btn" onclick="scrollToPhase('phaseResume', this)">📄 Resume</button>
+  <button class="nav-btn" onclick="scrollToPhase('phaseGitHub', this)">🐙 GitHub</button>
+  <button class="nav-btn" onclick="scrollToPhase('phaseCerts', this)">🏆 All Certs</button>
+</div>
+
+<div class="container">
+
+<!-- ====== PHASE 0: DAY 0 SETUP ====== -->
+<div class="phase-block" id="phase0">
+  <div class="phase-header">
+    <span class="phase-number">DAY 0</span>
+    <span class="phase-title">One-Time Setup — Do This First</span>
+    <span class="phase-meta">Before anything else</span>
+  </div>
+  <div class="tip">⚡ Complete all these in one sitting (2–3 hours). This sets up your free tools, accounts, and learning environment before Week 1 begins.</div>
+
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">SETUP</span>
+      <span class="week-title">Accounts, Tools & Free Resources</span>
+      <span class="week-badge badge-green">Do Once</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+
+      <div class="day-section">
+        <div class="day-label">GITHUB (20 min)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create a GitHub account</strong> — use a professional username (e.g. yourname-data). This is where your portfolio lives.</div><a href="https://github.com" target="_blank" class="task-link">→ github.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Apply for GitHub Student Developer Pack</strong> — free GitHub Pro, Copilot, JetBrains, Namecheap domain</div><a href="https://education.github.com/pack" target="_blank" class="task-link">→ education.github.com/pack</a><div class="task-note">Use your college email. Approval takes 1–3 days.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create your GitHub Profile README</strong> — introduces you to recruiters who visit your profile</div><a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/customizing-your-profile/managing-your-profile-readme" target="_blank" class="task-link">→ How-to Guide</a></div></div>
+      </div>
+
+      <div class="day-section">
+        <div class="day-label">TOOLS TO INSTALL (45 min)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Install Python 3.11+</strong> — the language you'll use for 80% of data tasks</div><a href="https://www.python.org/downloads/" target="_blank" class="task-link">→ python.org</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Install VS Code</strong> + Python extension — your main code editor</div><a href="https://code.visualstudio.com/" target="_blank" class="task-link">→ code.visualstudio.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Install Anaconda / Jupyter Notebook</strong> — industry-standard for data analysis</div><a href="https://www.anaconda.com/download" target="_blank" class="task-link">→ anaconda.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Install DB Browser for SQLite</strong> — free local SQL database for practice</div><a href="https://sqlitebrowser.org/" target="_blank" class="task-link">→ sqlitebrowser.org</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Download Tableau Public</strong> (100% free) — industry BI tool for visualizations</div><a href="https://www.tableau.com/products/public/download" target="_blank" class="task-link">→ tableau.com/public</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Install Power BI Desktop</strong> (free for Windows) — Microsoft BI tool, widely used in Indian companies</div><a href="https://powerbi.microsoft.com/en-us/downloads/" target="_blank" class="task-link">→ powerbi.microsoft.com</a></div></div>
+      </div>
+
+      <div class="day-section">
+        <div class="day-label">ONLINE ACCOUNTS (30 min)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create Kaggle account</strong> — free datasets, competitions, and notebooks</div><a href="https://www.kaggle.com" target="_blank" class="task-link">→ kaggle.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create Google Colab account</strong> (uses Google account) — free cloud Python notebooks</div><a href="https://colab.research.google.com" target="_blank" class="task-link">→ colab.research.google.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Sign up for Mode Analytics / DataCamp free tier</strong> — browser-based SQL practice</div><a href="https://mode.com/sql-tutorial/" target="_blank" class="task-link">→ mode.com/sql-tutorial</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create Notion account</strong> — for notes, project tracking, interview prep</div><a href="https://notion.so" target="_blank" class="task-link">→ notion.so</a></div></div>
+      </div>
+
+      <div class="day-section">
+        <div class="day-label">LINKEDIN SETUP (30 min)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create or update LinkedIn profile</strong> — add a professional photo (clear, well-lit)</div><a href="https://linkedin.com" target="_blank" class="task-link">→ linkedin.com</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Set your headline:</strong> "Aspiring Data Analyst | Python · SQL · Tableau | Building my portfolio"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Follow these pages:</strong> Google Data Analytics, Tableau, Microsoft Power BI, Kaggle, DataCamp</div></div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ====== PHASE 1: MONTHS 1–2 FOUNDATIONS ====== -->
+<div class="phase-block" id="phase1">
+  <div class="phase-header">
+    <span class="phase-number">PHASE 1</span>
+    <span class="phase-title">Excel + Statistics + SQL Basics</span>
+    <span class="phase-meta">Month 1–2 · Weeks 1–8</span>
+  </div>
+  <div class="tip">📊 This is your foundation. Don't rush to Python or Tableau yet — recruiters still test Excel and basic SQL in 90% of fresher data analyst interviews. Nail this first.</div>
+
+  <!-- WEEK 1 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 1</span>
+      <span class="week-title">Excel Fundamentals — The Analyst's Swiss Army Knife</span>
+      <span class="week-badge badge-green">Excel</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">MON–TUE · Core Excel Functions</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn VLOOKUP, HLOOKUP, INDEX-MATCH</strong> — the most common interview Excel questions</div><a href="https://www.youtube.com/watch?v=d3BYVQ6xIE4" target="_blank" class="task-link">→ YouTube Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn IF, SUMIF, COUNTIF, AVERAGEIF</strong> — conditional logic used daily by analysts</div><a href="https://support.microsoft.com/en-us/office/sumif-function-169b8c99-c05c-4483-a712-1697a653039b" target="_blank" class="task-link">→ Microsoft Docs</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn TEXT functions:</strong> TRIM, LEFT, RIGHT, MID, CONCATENATE — essential for dirty data cleaning</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice with a real dataset</strong> — download a free retail sales dataset from Kaggle and apply all functions</div><a href="https://www.kaggle.com/datasets/rohitsahoo/sales-forecasting" target="_blank" class="task-link">→ Kaggle Dataset</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WED–THU · Pivot Tables & Charts</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Master Pivot Tables</strong> — summarize, group, filter, sort large datasets in minutes</div><a href="https://www.youtube.com/watch?v=m0wI61ahfLc" target="_blank" class="task-link">→ YouTube Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create 3 chart types:</strong> Bar chart, Line chart, Pie chart — using the retail dataset</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Conditional Formatting</strong> — highlight cells, data bars, color scales</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">FRI · Review + Mini Project</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Mini Project:</strong> Download the Superstore dataset and create a 1-page Excel dashboard — sales by region, top 5 products, monthly trend</div><a href="https://www.kaggle.com/datasets/vivek468/superstore-dataset-final" target="_blank" class="task-link">→ Superstore Dataset</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Upload your Excel file to GitHub</strong> — create a repo "excel-projects" with a README describing what you built</div></div></div>
+      </div>
+      <div class="section-h">PARALLEL TRACK — WEEK 1</div>
+      <div class="parallel-track">
+        <div class="track-label">LINKEDIN THIS WEEK</div>
+        <div class="track-item">Post Day 1: "Starting my 6-month journey to become a Data Analyst. Week 1 goal: master Excel — the most underrated tool in data. #DataAnalytics #LearningInPublic"</div>
+        <div class="track-item">Post Day 5: Share a screenshot of your Excel dashboard — "Built my first dashboard using Pivot Tables and VLOOKUP. What I learned..."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 2</span>
+      <span class="week-title">Advanced Excel — Power Query & Data Cleaning</span>
+      <span class="week-badge badge-green">Excel</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">MON–TUE · Data Cleaning in Excel</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn to handle duplicates, blanks, and inconsistent data</strong> — the real-world analyst's daily job</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Use Text to Columns, Flash Fill, Find & Replace</strong> — speed up your data prep</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Download a messy dataset</strong> and clean it from scratch — document every step you take</div><a href="https://www.kaggle.com/datasets/datasnaek/youtube-new" target="_blank" class="task-link">→ YouTube Stats Dataset</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WED–THU · Power Query Introduction</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Watch:</strong> Power Query full tutorial — Chandoo (free, excellent)</div><a href="https://www.youtube.com/watch?v=0aeZX1l4JT4" target="_blank" class="task-link">→ YouTube Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice:</strong> Merge two tables using Power Query — simulate a real ETL task</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">FRI · Excel Portfolio Project</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Portfolio Project 1:</strong> "Sales Performance Dashboard" — clean raw data, build summary KPIs (total revenue, top region, growth %), pivot chart. Upload to GitHub.</div></div></div>
+      </div>
+      <div class="section-h">PARALLEL TRACK — WEEK 2</div>
+      <div class="parallel-track">
+        <div class="track-label">LINKEDIN THIS WEEK</div>
+        <div class="track-item">Share the before/after of a messy dataset you cleaned. "Spent 2 hours cleaning this dataset — here's what I learned about real-world data quality"</div>
+        <div class="track-item">Post your GitHub project link with a screenshot of your dashboard</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 3-4 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 3–4</span>
+      <span class="week-title">Statistics for Data Analysis — No Math Degree Needed</span>
+      <span class="week-badge badge-teal">Statistics</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 3 · Descriptive Statistics</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Understand Mean, Median, Mode, Variance, Standard Deviation</strong> — and when to use each</div><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank" class="task-link">→ Khan Academy Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Distributions:</strong> Normal, Skewed, Bimodal — recognize them from histograms</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Correlation vs Causation</strong> — the most important concept in business analytics</div><a href="https://www.youtube.com/watch?v=GtV-VYdNt_g" target="_blank" class="task-link">→ YouTube Explainer</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice in Excel:</strong> Calculate all stats on a dataset — use Excel's built-in STDEV, CORREL, MEDIAN functions</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 4 · Probability & Business Stats</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Basic Probability:</strong> What it means in A/B testing, customer churn, sales forecasting</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Understand Percentiles & Quartiles</strong> — used in every KPI dashboard</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn what a p-value is</strong> — entry-level question in many analyst interviews</div><a href="https://www.youtube.com/watch?v=5Z9OIYA8He8" target="_blank" class="task-link">→ StatQuest YouTube</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Complete Google's free Statistics course</strong> on Coursera — audit for free</div><a href="https://www.coursera.org/learn/google-data-analytics" target="_blank" class="task-link">→ Google Data Analytics</a></div></div>
+      </div>
+      <div class="section-h">PARALLEL TRACK — WEEK 3–4</div>
+      <div class="parallel-track">
+        <div class="track-label">LINKEDIN THIS WEEK</div>
+        <div class="track-item">Post a "Did you know?" fact about statistics — e.g., "Correlation ≠ Causation: Ice cream sales and drowning rates are correlated. Here's why that matters for data analysts..."</div>
+        <div class="track-item">Share a mini-analysis you did in Excel — even a histogram of a public dataset counts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 5-6 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 5–6</span>
+      <span class="week-title">SQL Foundations — Query Everything</span>
+      <span class="week-badge badge-gold">SQL</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 5 · Core SQL Syntax</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn SELECT, WHERE, ORDER BY, LIMIT</strong> — the building blocks</div><a href="https://sqlzoo.net/wiki/SQL_Tutorial" target="_blank" class="task-link">→ SQLZoo Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn GROUP BY, HAVING, aggregate functions</strong> (COUNT, SUM, AVG, MIN, MAX)</div><a href="https://mode.com/sql-tutorial/sql-aggregate-functions/" target="_blank" class="task-link">→ Mode SQL Tutorial</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice 10 problems daily</strong> on LeetCode (free SQL section) or HackerRank</div><a href="https://leetcode.com/studyplan/top-sql-50/" target="_blank" class="task-link">→ LeetCode SQL 50</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Watch:</strong> SQL Full Course for Beginners — Mosh Hamedani (3 hrs, free)</div><a href="https://www.youtube.com/watch?v=7S_tz1z_5bA" target="_blank" class="task-link">→ YouTube Free</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 6 · JOINs & Subqueries</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Master all JOIN types:</strong> INNER, LEFT, RIGHT, FULL OUTER — draw diagrams for each</div><a href="https://www.youtube.com/watch?v=9yeOJ0ZMUYw" target="_blank" class="task-link">→ Visual JOINs Guide</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Subqueries and CTEs (Common Table Expressions)</strong> — used in 80% of analyst SQL queries</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Window Functions:</strong> ROW_NUMBER, RANK, LAG, LEAD — frequently asked in interviews</div><a href="https://mode.com/sql-tutorial/sql-window-functions/" target="_blank" class="task-link">→ Mode SQL Tutorial</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Complete 30 SQL problems</strong> on StrataScratch or HackerRank (data analyst track)</div><a href="https://www.stratascratch.com/" target="_blank" class="task-link">→ StrataScratch</a></div></div>
+      </div>
+      <div class="section-h">PARALLEL TRACK — WEEK 5–6</div>
+      <div class="parallel-track">
+        <div class="track-label">LINKEDIN THIS WEEK</div>
+        <div class="track-item">Post a SQL tip: "This one SQL trick saved me hours — CTEs make complex queries readable." Share a before/after query</div>
+        <div class="track-item">Share your LeetCode SQL progress — even completing 10 easy problems is worth posting</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 7-8 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 7–8</span>
+      <span class="week-title">SQL Project + Google Data Analytics Certificate</span>
+      <span class="week-badge badge-gold">SQL + Cert</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 7 · SQL Analysis Project</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Portfolio Project 2:</strong> Download Netflix or IMDB dataset from Kaggle, write 10+ SQL queries to find insights — top genres, average ratings by year, actor frequency</div><a href="https://www.kaggle.com/datasets/shivamb/netflix-shows" target="_blank" class="task-link">→ Netflix Dataset</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Document all queries in GitHub</strong> with a README explaining your findings and business questions answered</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Use DB Browser for SQLite</strong> locally or BigQuery sandbox (free) for cloud SQL practice</div><a href="https://cloud.google.com/bigquery/docs/sandbox" target="_blank" class="task-link">→ BigQuery Sandbox</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 8 · Google Data Analytics Certificate</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Enroll in Google Data Analytics Professional Certificate</strong> — covers Excel, SQL, Tableau, R basics. Apply for financial aid (free) or audit individual courses</div><a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="task-link">→ Coursera (Audit Free)</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Complete Courses 1–3 this week</strong> (Foundations, Ask the Right Questions, Prepare Data)</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Add the certificate to LinkedIn</strong> under Licenses & Certifications once complete</div></div></div>
+      </div>
+      <div class="section-h">MONTH 1–2 CERTIFICATIONS</div>
+      <div class="cert-card">
+        <div class="cert-title">Google Data Analytics Professional Certificate ✓</div>
+        <div class="cert-meta">Target: End of Month 2 · Free to audit · ~4 months at 5hrs/week · Recognized by 150+ companies globally including Google, Deloitte, PwC</div>
+        <div class="cert-links">
+          <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="cert-link">Enroll on Coursera</a>
+          <a href="https://grow.google/certificates/data-analytics/" target="_blank" class="cert-link">Google's Overview</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== PHASE 2: MONTHS 3–4 SQL + PYTHON ====== -->
+<div class="phase-block" id="phase2">
+  <div class="phase-header">
+    <span class="phase-number">PHASE 2</span>
+    <span class="phase-title">Python for Data Analysis + Advanced SQL</span>
+    <span class="phase-meta">Month 3–4 · Weeks 9–16</span>
+  </div>
+  <div class="tip">🐍 This is where you separate yourself from other freshers. Most candidates know Excel and basic SQL — very few can write clean Python for analysis. This phase makes you stand out.</div>
+
+  <!-- WEEK 9-10 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 9–10</span>
+      <span class="week-title">Python Basics for Analysts (Not Software Engineers)</span>
+      <span class="week-badge badge-blue">Python</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 9 · Python Core Concepts</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Python basics:</strong> Variables, data types, lists, dicts, loops, functions — analyst-focused approach</div><a href="https://www.kaggle.com/learn/python" target="_blank" class="task-link">→ Kaggle Python (Free)</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Set up Jupyter Notebook</strong> — run your first Python analysis in a notebook</div><a href="https://jupyter.org/try" target="_blank" class="task-link">→ Try Jupyter Online</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Complete CS50P (Python) first 3 lectures</strong> — best free Python course by Harvard</div><a href="https://cs50.harvard.edu/python/" target="_blank" class="task-link">→ CS50P Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Do NOT spend time on OOP or decorators yet</strong> — focus on data manipulation-relevant Python</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 10 · Pandas Deep Dive</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Pandas:</strong> read_csv, head/tail, info, describe, value_counts, groupby, merge, fillna, dropna</div><a href="https://www.kaggle.com/learn/pandas" target="_blank" class="task-link">→ Kaggle Pandas (Free)</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Replicate your Excel analysis in Python</strong> — take the Superstore dataset and answer the same questions using Pandas</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice:</strong> Solve 5 Kaggle Python problems per day in a notebook</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>LinkedIn:</strong> Post "Just learned Pandas — here's how Python replaced 3 hours of Excel work in 10 lines of code" with a code screenshot</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 11-12 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 11–12</span>
+      <span class="week-title">Data Visualization with Python — Matplotlib & Seaborn</span>
+      <span class="week-badge badge-blue">Python</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 11 · Matplotlib Basics</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Matplotlib:</strong> line plots, bar charts, scatter plots, histograms, subplots</div><a href="https://www.youtube.com/watch?v=3Xc3CA655Y4" target="_blank" class="task-link">→ YouTube Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Seaborn:</strong> heatmaps, pairplots, boxplots, violin plots — beautiful statistical charts in 3 lines</div><a href="https://seaborn.pydata.org/tutorial.html" target="_blank" class="task-link">→ Official Docs</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Rule:</strong> Every chart must have a title, axis labels, and a 1-line insight — no unlabeled charts in your portfolio</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 12 · EDA Project</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Portfolio Project 3:</strong> Full Exploratory Data Analysis (EDA) on a Kaggle dataset of your choice — 10+ visualizations, 5 key insights, clean Jupyter notebook</div><a href="https://www.kaggle.com/datasets/tmdb/tmdb-movie-metadata" target="_blank" class="task-link">→ Movie Dataset (example)</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Structure your notebook:</strong> Problem statement → Data overview → Cleaning → Exploration → Insights → Recommendations</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Push to GitHub + publish on Kaggle</strong> — Kaggle notebooks get views and upvotes, building your public profile</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>LinkedIn Post:</strong> Share your EDA notebook link — "Analyzed 5,000 movies. Here are the 3 most surprising insights I found..."</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 13-14 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 13–14</span>
+      <span class="week-title">Advanced SQL — Window Functions & Real Analyst Queries</span>
+      <span class="week-badge badge-gold">Advanced SQL</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 13 · Business-Focused SQL Patterns</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Cohort Analysis in SQL</strong> — most common analyst query pattern in e-commerce, SaaS</div><a href="https://www.youtube.com/watch?v=GUPKF9SRdGo" target="_blank" class="task-link">→ YouTube Tutorial</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Funnel Analysis in SQL</strong> — tracking user conversion steps</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice on real company-style datasets</strong> via StrataScratch — sorted by company (Google, Amazon, Meta)</div><a href="https://www.stratascratch.com/" target="_blank" class="task-link">→ StrataScratch Free</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 14 · SQL in Python (SQLAlchemy + Pandas)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn to run SQL inside Python notebooks</strong> using pandas.read_sql() and SQLite — connects your two biggest skills</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice on Google BigQuery sandbox</strong> — write SQL on real large datasets (free)</div><a href="https://console.cloud.google.com/bigquery" target="_blank" class="task-link">→ BigQuery Sandbox</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Solve 5 advanced SQL problems on LeetCode or DataLemur</strong> (analyst-specific practice)</div><a href="https://datalemur.com/" target="_blank" class="task-link">→ DataLemur Free</a></div></div>
+      </div>
+      <div class="section-h">PARALLEL TRACK — MONTH 3–4</div>
+      <div class="parallel-track">
+        <div class="track-label">LINKEDIN THIS MONTH</div>
+        <div class="track-item">Post 1 Python tip per week — "This Pandas one-liner replaced 15 minutes of Excel work"</div>
+        <div class="track-item">Share your EDA notebook project — tag #Python #DataAnalysis #Pandas</div>
+        <div class="track-item">Post a SQL interview question you solved — "Solved this Amazon SQL interview question today. Here's my approach..."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 15-16 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 15–16</span>
+      <span class="week-title">Intro to Machine Learning Concepts (Analyst-Level)</span>
+      <span class="week-badge badge-purple">ML Basics</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 15 · ML Concepts for Analysts</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Understand the difference:</strong> Data Analyst vs Data Scientist vs ML Engineer — know where you fit</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Linear Regression conceptually</strong> — used in forecasting and trend analysis (core analyst skill)</div><a href="https://www.youtube.com/watch?v=PaFPbb66DxQ" target="_blank" class="task-link">→ StatQuest YouTube</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Clustering (K-Means conceptually)</strong> — used in customer segmentation</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Complete Kaggle Intro to ML course</strong> (free, 7 lessons)</div><a href="https://www.kaggle.com/learn/intro-to-machine-learning" target="_blank" class="task-link">→ Kaggle ML Course</a></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 16 · Scikit-learn Basics</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Build a simple linear regression model</strong> on housing prices — predict house value from features</div><a href="https://www.kaggle.com/datasets/camnugent/california-housing-prices" target="_blank" class="task-link">→ Housing Dataset</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn train/test split, cross-validation, RMSE</strong> — the basic evaluation workflow</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Important:</strong> Don't go deep into ML. Analysts who know the basics impress interviewers — deep ML is for data scientists</div></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== PHASE 3: MONTHS 5–6 BI + JOBS ====== -->
+<div class="phase-block" id="phase3">
+  <div class="phase-header">
+    <span class="phase-number">PHASE 3</span>
+    <span class="phase-title">Tableau + Power BI + Portfolio + Job Prep</span>
+    <span class="phase-meta">Month 5–6 · Weeks 17–24</span>
+  </div>
+  <div class="tip">🎯 This is your launch phase. Stop learning new tools and start applying what you know. Build polished projects, apply to jobs from Week 20 onwards, and interview relentlessly.</div>
+
+  <!-- WEEK 17-18 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 17–18</span>
+      <span class="week-title">Tableau — Build Dashboards That Tell Stories</span>
+      <span class="week-badge badge-coral">Tableau</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 17 · Tableau Fundamentals</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Watch:</strong> Tableau Full Tutorial for Beginners — Traversy Media (free)</div><a href="https://www.youtube.com/watch?v=TPMlZxRRaBQ" target="_blank" class="task-link">→ YouTube Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Complete Tableau's own free training videos</strong> — 6 hours, official, very practical</div><a href="https://www.tableau.com/learn/training/20224" target="_blank" class="task-link">→ Tableau Free Training</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Connect Tableau to Excel and CSV files</strong> — recreate your Sales Dashboard from Week 2</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn calculated fields, filters, parameters, sets</strong> — the power features</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 18 · Tableau Portfolio Dashboard</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Portfolio Project 4:</strong> Build a full Tableau dashboard on COVID, HR analytics, or Sales data. Minimum: 3 sheets, 1 interactive dashboard, filters</div><a href="https://www.kaggle.com/datasets/imdevskp/corona-virus-report" target="_blank" class="task-link">→ COVID Dataset</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Publish to Tableau Public</strong> — your dashboards are live and shareable, add the link to your LinkedIn and resume</div><a href="https://public.tableau.com" target="_blank" class="task-link">→ Tableau Public</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>LinkedIn Post:</strong> Share your Tableau Public link — "Built my first Tableau dashboard: 3 key findings from [dataset]..." with a dashboard screenshot</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 19-20 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 19–20</span>
+      <span class="week-title">Power BI — India's Most Requested BI Tool</span>
+      <span class="week-badge badge-coral">Power BI</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 19 · Power BI Basics</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Watch:</strong> Power BI Full Tutorial — Guy in a Cube (free, excellent YouTube channel)</div><a href="https://www.youtube.com/c/GuyinaCube" target="_blank" class="task-link">→ Guy in a Cube YouTube</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn Power Query in Power BI</strong> — connects to your Excel Power Query knowledge</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Learn DAX basics:</strong> CALCULATE, SUM, AVERAGE, COUNTROWS — used for all custom KPIs</div><a href="https://docs.microsoft.com/en-us/dax/" target="_blank" class="task-link">→ DAX Docs (Free)</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Build a simple 2-page Power BI report</strong> on an HR dataset — headcount, attrition, salary bands</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 20 · Power BI Portfolio + Microsoft PL-300</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Portfolio Project 5 (Capstone):</strong> Build an end-to-end Power BI report — connect data, clean in Power Query, model relationships, build dashboard with 5+ visuals, publish to Power BI Service</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Start studying for Microsoft PL-300</strong> (Power BI Data Analyst Associate certification)</div><a href="https://learn.microsoft.com/en-us/certifications/exams/pl-300/" target="_blank" class="task-link">→ Microsoft Learn Free</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Microsoft Learn is 100% free</strong> — all PL-300 modules available with practice assessments</div><a href="https://learn.microsoft.com/en-us/training/paths/prepare-for-power-bi-analyst-exam/" target="_blank" class="task-link">→ PL-300 Study Path</a></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 21-22 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 21–22</span>
+      <span class="week-title">Interview Preparation — SQL + Stats + Case Studies</span>
+      <span class="week-badge badge-purple">Interview Prep</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">WEEK 21 · Technical Interview Prep</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Solve 3 SQL problems daily</strong> on DataLemur — sorted by company and role (Data Analyst track)</div><a href="https://datalemur.com/questions?category=SQL" target="_blank" class="task-link">→ DataLemur SQL</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice explaining your code out loud</strong> — interviewers care as much about communication as correctness</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Prepare answers for top 20 analyst interview questions</strong> — use STAR method for behavioral questions</div><a href="https://www.interviewquery.com/interview-guides/data-analyst" target="_blank" class="task-link">→ Interview Query Guide</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Memorize key statistics concepts:</strong> p-value, A/B testing, confidence intervals — frequently asked by product and analytics companies</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WEEK 22 · Case Study Practice</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Practice 3 business case studies:</strong> "Retention dropped 15% — how would you investigate?", "Which marketing channel should we invest in?", "Design a metric for user engagement"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Framework for case studies:</strong> Clarify the problem → Break it into metrics → Propose analysis → State assumptions → Give actionable recommendation</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Do 2 mock interviews</strong> with friends, seniors, or on Pramp (free peer mock interviews)</div><a href="https://www.pramp.com/" target="_blank" class="task-link">→ Pramp.com Free</a></div></div>
+      </div>
+      <div class="section-h">PARALLEL TRACK — WEEK 21–22</div>
+      <div class="parallel-track">
+        <div class="track-label">JOB APPLICATIONS — START NOW</div>
+        <div class="track-item">Apply to 5 jobs per day on LinkedIn, Naukri, Indeed — filter for "Data Analyst Fresher" or "Junior Data Analyst"</div>
+        <div class="track-item">Target: MNCs (TCS, Infosys, Wipro analytics roles), startups (AngelList), and product companies</div>
+        <div class="track-item">Customize your resume headline for each job — paste the job description into ChatGPT and ask "what keywords should I add to my resume?"</div>
+        <div class="track-item">Connect with 5 data analysts on LinkedIn per day — send a personalized note, not a generic request</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK 23-24 -->
+  <div class="week-card">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">WEEK 23–24</span>
+      <span class="week-title">Final Sprint — Polish Portfolio, Apply, Repeat</span>
+      <span class="week-badge badge-green">Job Ready</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">PORTFOLIO REVIEW</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Review all 5 portfolio projects:</strong> clean READMEs, professional visuals, clear problem statements and insights</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Pin your 3 best GitHub repositories</strong> — the ones that would impress a recruiter in 30 seconds</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Create a Tableau Public portfolio page</strong> — link it in your resume and LinkedIn</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">FINAL PUSH</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Aim for 30+ job applications per week</strong> — data analyst jobs reward volume early on</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Follow up on applications after 5–7 days</strong> — a polite LinkedIn message to the hiring manager doubles callback rate</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Keep solving 3 SQL problems per day</strong> even while applying — stay sharp</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Attend local data meetups or virtual events</strong> — Meetup.com, NASSCOM events, LinkedIn events near you</div><a href="https://www.meetup.com/topics/data-analytics/" target="_blank" class="task-link">→ Meetup.com</a></div></div>
+      </div>
+      <div class="section-h">MONTH 5–6 CERTIFICATIONS</div>
+      <div class="cert-card" style="border-left-color: var(--accent3)">
+        <div class="cert-title">Microsoft PL-300: Power BI Data Analyst Associate ✓✓</div>
+        <div class="cert-meta">Target: End of Month 6 · ₹3,800–₹4,500 exam · 100% free study materials on Microsoft Learn · Highly valued in Indian companies using Microsoft ecosystem</div>
+        <div class="cert-links">
+          <a href="https://learn.microsoft.com/en-us/certifications/exams/pl-300/" target="_blank" class="cert-link">Exam Details</a>
+          <a href="https://learn.microsoft.com/en-us/training/paths/prepare-for-power-bi-analyst-exam/" target="_blank" class="cert-link">Free Study Path</a>
+          <a href="https://www.youtube.com/watch?v=AGrl-H87pRU" target="_blank" class="cert-link">YouTube Crash Course</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ====== LINKEDIN SECTION ====== -->
+<div class="phase-block" id="phaseLinkedIn">
+  <div class="phase-header">
+    <span class="phase-number">LINKEDIN</span>
+    <span class="phase-title">Build Your Personal Brand in Public</span>
+    <span class="phase-meta">Every week · Entire 6 months</span>
+  </div>
+  <div class="tip">💼 Post consistently on LinkedIn from Day 1 — even when you don't feel ready. Recruiters discover freshers through content, not just applications. 1 post/week minimum.</div>
+
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">STRATEGY</span>
+      <span class="week-title">LinkedIn Content Calendar & Optimization</span>
+      <span class="week-badge badge-blue">LinkedIn</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">PROFILE OPTIMIZATION</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Headline formula:</strong> "[Current status] | [Skills] | [What you're building]" — e.g. "Data Analyst Fresher | SQL · Python · Tableau | Building public projects"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>About section:</strong> 3 sentences — who you are, what you're learning, what you want to do. End with your GitHub/Tableau link.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Featured section:</strong> Pin your best project (GitHub or Tableau) and your resume PDF here</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Skills section:</strong> Add SQL, Python, Tableau, Power BI, Excel, Data Analysis, Statistics — get endorsements from classmates</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">WHAT TO POST</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Weekly learning post:</strong> "This week I learned [X]. Here's the most surprising thing..." — 3–5 sentences + screenshot</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Project showcase:</strong> Every portfolio project gets its own post — what you built, what you found, GitHub link</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Tip posts:</strong> "The one SQL function that makes my queries 10x cleaner" — share practical insights</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Engage with others:</strong> Comment meaningfully on posts by senior analysts — 5 thoughtful comments/day builds visibility</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Tags to use:</strong> #DataAnalytics #SQL #Python #Tableau #LearningInPublic #DataAnalyst #FresherJobs</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== RESUME SECTION ====== -->
+<div class="phase-block" id="phaseResume">
+  <div class="phase-header">
+    <span class="phase-number">RESUME</span>
+    <span class="phase-title">Data Analyst Resume — ATS-Friendly Format</span>
+    <span class="phase-meta">Update monthly</span>
+  </div>
+
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">RESUME</span>
+      <span class="week-title">Build & Maintain Your Resume in Parallel</span>
+      <span class="week-badge badge-green">Resume</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">RESUME STRUCTURE</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Use this section order:</strong> Contact Info → Summary → Skills → Projects → Education → Certifications</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>For freshers:</strong> Projects section is MORE important than Experience. Lead with your 3 best projects.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Project bullet format:</strong> "[Action verb] [what you did] using [tool/skill], resulting in [quantified outcome]" — e.g., "Analyzed 50,000+ rows of Netflix data using SQL and Python, identifying 5 viewership trends"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Skills section:</strong> Languages: Python, SQL · Tools: Tableau, Power BI, Excel · Libraries: Pandas, Matplotlib, Seaborn · Databases: MySQL, SQLite, BigQuery</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">ATS TIPS</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Use exact keywords from job descriptions</strong> — paste job description into ChatGPT and ask "what keywords should I add to my resume for this role?"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Test your resume:</strong> Upload to Jobscan to check ATS compatibility (free tier available)</div><a href="https://www.jobscan.co/" target="_blank" class="task-link">→ Jobscan ATS Checker</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Use Jake's Resume template on Overleaf</strong> (free LaTeX template, ATS-friendly, clean)</div><a href="https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs" target="_blank" class="task-link">→ Jake's Resume Template</a></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Keep it 1 page. No photos, no tables, no columns</strong> — they break ATS parsing.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== GITHUB SECTION ====== -->
+<div class="phase-block" id="phaseGitHub">
+  <div class="phase-header">
+    <span class="phase-number">GITHUB</span>
+    <span class="phase-title">Build a Portfolio Recruiters Actually Click</span>
+    <span class="phase-meta">Ongoing</span>
+  </div>
+
+  <div class="week-card open">
+    <button class="week-toggle" onclick="toggleWeek(this.parentElement)">
+      <span class="week-label">GITHUB</span>
+      <span class="week-title">Portfolio Architecture & Best Practices</span>
+      <span class="week-badge badge-teal">GitHub</span>
+      <span class="chevron-icon">▼</span>
+    </button>
+    <div class="week-body">
+      <div class="day-section">
+        <div class="day-label">REPOSITORIES TO BUILD</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>excel-sales-dashboard</strong> — Your Week 2 project. Upload .xlsx file + screenshot + README explaining KPIs</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>sql-netflix-analysis</strong> — Your Week 7 project. .sql files + result screenshots + a README with business questions you answered</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>python-eda-[dataset]</strong> — Your Week 12 EDA Jupyter notebook. Clean, commented, publishable. Also upload to Kaggle.</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>tableau-dashboard</strong> — README + Tableau Public link + screenshot preview of your dashboard</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>powerbi-capstone</strong> — Your Week 20 Power BI project. PDF export of the report + .pbix file + README</div></div></div>
+      </div>
+      <div class="day-section">
+        <div class="day-label">README FORMULA (FOR EVERY PROJECT)</div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Section 1 — Problem Statement:</strong> "What business question does this project answer?"</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Section 2 — Dataset:</strong> Source, size, key variables</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Section 3 — Tools Used:</strong> Python / SQL / Tableau / Power BI</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Section 4 — Key Findings:</strong> 3–5 bullet insights — what did the data reveal?</div></div></div>
+        <div class="task-item" onclick="toggleTask(this)"><div class="task-check"></div><div><div class="task-text"><strong>Section 5 — Screenshot:</strong> Always add an image of your visualization or dashboard output</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== CERTIFICATIONS OVERVIEW ====== -->
+<div class="phase-block" id="phaseCerts">
+  <div class="phase-header">
+    <span class="phase-number">CERTS</span>
+    <span class="phase-title">All Certifications — Timeline & Resources</span>
+    <span class="phase-meta">Full 6-Month + Beyond</span>
+  </div>
+
+  <div class="cert-card" style="border-left-color: var(--accent)">
+    <div class="cert-title">Google Data Analytics Professional Certificate ✓</div>
+    <div class="cert-meta">Target: End of Month 2 · Audit for free or apply for financial aid · ~4–5 months at self-pace · 8 courses covering Excel, SQL, R, Tableau · Badge from Google accepted widely</div>
+    <div class="cert-links">
+      <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="cert-link">Enroll (Coursera)</a>
+      <a href="https://grow.google/certificates/data-analytics/" target="_blank" class="cert-link">Google Overview</a>
+    </div>
+  </div>
+
+  <div class="cert-card" style="border-left-color: var(--teal)">
+    <div class="cert-title">Kaggle Data Analyst Micro-Certificates ✓</div>
+    <div class="cert-meta">Target: Month 3–4 · 100% Free · Certificates for Python, Pandas, SQL, Data Visualization — fast to earn, legitimately respected</div>
+    <div class="cert-links">
+      <a href="https://www.kaggle.com/learn" target="_blank" class="cert-link">Kaggle Learn (Free)</a>
+      <a href="https://www.kaggle.com/learn/pandas" target="_blank" class="cert-link">Pandas Course</a>
+      <a href="https://www.kaggle.com/learn/data-visualization" target="_blank" class="cert-link">Data Viz Course</a>
+    </div>
+  </div>
+
+  <div class="cert-card" style="border-left-color: var(--accent3)">
+    <div class="cert-title">Microsoft PL-300: Power BI Data Analyst Associate ✓✓</div>
+    <div class="cert-meta">Target: End of Month 6 · ₹3,800 exam · All study materials free on Microsoft Learn · Highly valued in Indian market — TCS, Infosys, Accenture, KPMG frequently list this</div>
+    <div class="cert-links">
+      <a href="https://learn.microsoft.com/en-us/certifications/exams/pl-300/" target="_blank" class="cert-link">Exam Details</a>
+      <a href="https://learn.microsoft.com/en-us/training/paths/prepare-for-power-bi-analyst-exam/" target="_blank" class="cert-link">Free Study Path</a>
+      <a href="https://www.youtube.com/watch?v=AGrl-H87pRU" target="_blank" class="cert-link">Free Crash Course</a>
+      <a href="https://learn.microsoft.com/en-us/certifications/practice-assessments-for-microsoft-certifications" target="_blank" class="cert-link">Free Practice Test</a>
+    </div>
+  </div>
+
+  <div class="cert-card" style="border-left-color: var(--gold)">
+    <div class="cert-title">Tableau Desktop Specialist — Optional ✓✓</div>
+    <div class="cert-meta">Target: Month 6 or beyond · $250 exam · Worth it if targeting product companies or analytics roles heavy on BI. Can skip and focus on PL-300 for Indian market.</div>
+    <div class="cert-links">
+      <a href="https://www.tableau.com/learn/certification/desktop-specialist" target="_blank" class="cert-link">Tableau Cert Page</a>
+      <a href="https://www.tableau.com/learn/training/20224" target="_blank" class="cert-link">Free Training</a>
+    </div>
+  </div>
+
+  <div class="section-h">ALL FREE RESOURCES IN ONE PLACE</div>
+  <div class="res-grid">
+    <div class="res-card"><div class="res-name">Kaggle Learn <span class="free-tag">FREE</span></div><div class="res-desc">Python, Pandas, SQL, Data Viz, ML — all with certs</div><a href="https://kaggle.com/learn" target="_blank" class="res-link">→ kaggle.com/learn</a></div>
+    <div class="res-card"><div class="res-name">LeetCode SQL <span class="free-tag">FREE</span></div><div class="res-desc">Top 50 SQL questions used in data analyst interviews</div><a href="https://leetcode.com/studyplan/top-sql-50/" target="_blank" class="res-link">→ Top SQL 50</a></div>
+    <div class="res-card"><div class="res-name">DataLemur <span class="free-tag">FREE</span></div><div class="res-desc">SQL + stats questions from Google, Meta, Amazon</div><a href="https://datalemur.com/" target="_blank" class="res-link">→ datalemur.com</a></div>
+    <div class="res-card"><div class="res-name">Mode SQL Tutorial <span class="free-tag">FREE</span></div><div class="res-desc">Best hands-on SQL tutorial for analysts — browser based</div><a href="https://mode.com/sql-tutorial/" target="_blank" class="res-link">→ mode.com/sql-tutorial</a></div>
+    <div class="res-card"><div class="res-name">StatQuest <span class="free-tag">FREE</span></div><div class="res-desc">Best stats & ML YouTube channel — clear visual explanations</div><a href="https://www.youtube.com/@statquest" target="_blank" class="res-link">→ YouTube StatQuest</a></div>
+    <div class="res-card"><div class="res-name">Tableau Public <span class="free-tag">FREE</span></div><div class="res-desc">Publish and share your dashboards as a portfolio</div><a href="https://public.tableau.com" target="_blank" class="res-link">→ public.tableau.com</a></div>
+    <div class="res-card"><div class="res-name">Microsoft Learn <span class="free-tag">FREE</span></div><div class="res-desc">All PL-300 Power BI study materials + practice tests</div><a href="https://learn.microsoft.com" target="_blank" class="res-link">→ learn.microsoft.com</a></div>
+    <div class="res-card"><div class="res-name">Google Colab <span class="free-tag">FREE</span></div><div class="res-desc">Free cloud Python notebooks — no installation needed</div><a href="https://colab.research.google.com" target="_blank" class="res-link">→ colab.research.google</a></div>
+    <div class="res-card"><div class="res-name">BigQuery Sandbox <span class="free-tag">FREE</span></div><div class="res-desc">Query real large datasets with SQL in the cloud</div><a href="https://cloud.google.com/bigquery/docs/sandbox" target="_blank" class="res-link">→ BigQuery Sandbox</a></div>
+    <div class="res-card"><div class="res-name">StrataScratch <span class="free-tag">FREE</span></div><div class="res-desc">SQL + Python interview questions by company and role</div><a href="https://stratascratch.com" target="_blank" class="res-link">→ stratascratch.com</a></div>
+    <div class="res-card"><div class="res-name">Khan Academy Stats <span class="free-tag">FREE</span></div><div class="res-desc">Statistics & probability from scratch — clear and visual</div><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank" class="res-link">→ Khan Academy</a></div>
+    <div class="res-card"><div class="res-name">Pramp <span class="free-tag">FREE</span></div><div class="res-desc">Free peer mock interviews — data analyst and SQL tracks</div><a href="https://pramp.com" target="_blank" class="res-link">→ pramp.com</a></div>
+    <div class="res-card"><div class="res-name">Jobscan ATS <span class="free-tag">FREE</span></div><div class="res-desc">Check resume ATS compatibility against job descriptions</div><a href="https://jobscan.co" target="_blank" class="res-link">→ jobscan.co</a></div>
+    <div class="res-card"><div class="res-name">Chandoo.org <span class="free-tag">FREE</span></div><div class="res-desc">Best Excel + Power BI tutorials for analysts</div><a href="https://chandoo.org" target="_blank" class="res-link">→ chandoo.org</a></div>
+    <div class="res-card"><div class="res-name">Guy in a Cube <span class="free-tag">FREE</span></div><div class="res-desc">Best Power BI YouTube channel — practical walkthroughs</div><a href="https://www.youtube.com/c/GuyinaCube" target="_blank" class="res-link">→ YouTube Channel</a></div>
+    <div class="res-card"><div class="res-name">Interview Query <span class="free-tag">FREE</span></div><div class="res-desc">Data analyst interview guide — questions + frameworks</div><a href="https://interviewquery.com" target="_blank" class="res-link">→ interviewquery.com</a></div>
+  </div>
+</div>
+
+</div><!-- end .container -->
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggleWeek(card) {
+  card.classList.toggle('open');
+}
+function toggleTask(item) {
+  item.classList.toggle('done');
+  const key = item.querySelector('.task-text').textContent.trim().substring(0, 40);
+  const stored = JSON.parse(localStorage.getItem('daRoadmapTasks') || '{}');
+  stored[key] = item.classList.contains('done');
+  localStorage.setItem('daRoadmapTasks', JSON.stringify(stored));
+}
+function scrollToPhase(id, btn) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollTop');
+  btn.classList.toggle('visible', window.scrollY > 400);
+});
+window.addEventListener('load', () => {
+  const stored = JSON.parse(localStorage.getItem('daRoadmapTasks') || '{}');
+  document.querySelectorAll('.task-item').forEach(item => {
+    const key = item.querySelector('.task-text')?.textContent.trim().substring(0, 40);
+    if (stored[key]) item.classList.add('done');
+  });
+});
+</script>
+</body>
+</html>

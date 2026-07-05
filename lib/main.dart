@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/theme.dart';
-import 'data/models/quest.dart';
 import 'data/models/user_profile.dart';
-import 'data/models/pet.dart';
-import 'data/models/inventory_item.dart';
-import 'data/models/skill_node.dart';
 import 'screens/splash_screen.dart';
 import 'data/services/firebase_service.dart';
 import 'data/services/mongo_sync_service.dart';
+import 'data/services/telemetry_service.dart';
+import 'providers/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,23 +16,15 @@ void main() async {
   await Hive.initFlutter();
   
   // Register Hive Adapters
-  Hive.registerAdapter(QuestAdapter());
   Hive.registerAdapter(UserProfileAdapter());
-  Hive.registerAdapter(PetAdapter());
-  Hive.registerAdapter(InventoryItemAdapter());
-  Hive.registerAdapter(SkillNodeAdapter());
 
   // Open Boxes
-  await Hive.openBox<Quest>('quests');
   await Hive.openBox<UserProfile>('profile');
-  await Hive.openBox<Pet>('pet');
-  await Hive.openBox<InventoryItem>('inventory');
-  await Hive.openBox<SkillNode>('skills');
-  await Hive.openBox<bool>('achievements_status');
 
   // Initialize Remote Services (Firebase & MongoDB Atlas Sync)
   await FirebaseService.initialize();
   await MongoSyncService.initialize();
+  await TelemetryService.initialize();
 
   runApp(
     const ProviderScope(
@@ -48,10 +38,13 @@ class LifeQuestApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = ref.watch(isDarkModeProvider);
+    RpgColors.isDarkMode = isDark;
+
     return MaterialApp(
-      title: 'LifeQuest RPG',
+      title: 'CareerPath',
       debugShowCheckedModeBanner: false,
-      theme: RpgTheme.darkTheme,
+      theme: isDark ? RpgTheme.darkTheme : RpgTheme.lightTheme,
       home: const SplashScreen(),
     );
   }
