@@ -1,4 +1,4 @@
-# lifequest_rpg
+# Career Path
 
 A new Flutter project.
 
